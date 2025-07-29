@@ -1,4 +1,4 @@
-CREATE DATABASE DB_FIRST_PROYECT;
+CREATE DATABASE db_first_proyect;
 
 
 

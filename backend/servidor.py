@@ -1,22 +1,17 @@
-import mysql.connector
+import pymysql
 
-print("✅ Script iniciado")
+print("🔍 Probando conexión a MariaDB de XAMPP con PyMySQL...")
 
 try:
-    print("🔄 Intentando conectar a MySQL...")
-
-    conexion = mysql.connector.connect(
-        host="localhost",     # <-- cambia esto
-        port=3306,            # <-- o prueba 3307
+    conexion = pymysql.connect(
+        host="localhost",
+        port=3306,
         user="root",
-        password="",          # <-- vacío si no pusiste una
-        database="db_first_proyect"
+        password="",     # Vacío por defecto en XAMPP
+        database="db_first_proyect"  # Cambia por el nombre de tu base de datos
     )
-
-    print("✅ Conexión establecida.")
+    print("✅ Conexión exitosa a la base de datos")
     conexion.close()
 
-except mysql.connector.Error as err:
-    print("❌ Error de MySQL:", err)
-except Exception as e:
-    print("⚠️ Otro error:", e)
+except pymysql.MySQLError as e:
+    print("❌ Error de conexión:", e)
