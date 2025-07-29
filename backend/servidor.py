@@ -1,9 +1,11 @@
-from db import conectar
-conexion = conectar()
-if conexion:
-    cursor = conexion.cursor()
-    cursor.execute("SHOW TABLES;")
-    tablas = cursor.fetchall()
-    print("Tablas encontradas en la base de datos")
-    for tabla in tablas:
-        print("-", tabla[0])
+from usuarios import registrar_usuario
+
+nombre = "Carlos"
+apellido ="Alfonso"
+correo = "jhernandez15007@gmail.com"
+telefono = "3112531749"
+contraseña = "123"
+direccion = "calle falsa 123"
+id_rol = 1
+
+registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol)
