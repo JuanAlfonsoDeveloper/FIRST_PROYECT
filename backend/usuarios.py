@@ -1,4 +1,6 @@
 from db import conectar
+import hashlib
+
 def registrar_usuario():
     print("Registrar Usuario")
 
@@ -23,7 +25,8 @@ def registrar_usuario():
         ) VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
 
-        datos = (nombre, apellido, correo, telefono, contraseña, direccion, id_rol)
+        contraseña_cifrada = cifrar_contraseña(contraseña)
+        datos = (nombre, apellido, correo, telefono, contraseña_cifrada, direccion, id_rol)
         cursor.execute(consulta, datos)
         conexion.commit()
         print("Usuario registrado correctamente")
@@ -31,3 +34,8 @@ def registrar_usuario():
         print("Error al registrar usuario:", e)
     finally:
         conexion.close()
+
+def cifrar_contraseña(contraseña):
+    sha256 = hashlib.sha256()
+    sha256.update(contraseña.encode("utf-8"))
+    return sha256.hexdigest()
