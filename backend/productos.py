@@ -54,3 +54,15 @@ def obtener_productos():
         print("Error al obtener productos:", e)
     finally: 
         conexion.close()
+
+# -- BUSCADOR DE PRODUCTOS --
+def buscar_producto_por_nombre(nombre_producto):
+    conexion = conectar()
+    if not conexion
+        return
+    
+    try:
+        cursor = conexion.cursor()
+        consulta = "SELECT * FROM  producto WHERE titulo_producto LIKE %s"
+        valor = 
+    
