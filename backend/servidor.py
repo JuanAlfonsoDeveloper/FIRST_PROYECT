@@ -8,8 +8,15 @@ from usuarios import (
     eliminar_usuario
 )
 
+from productos import(
+    registrar_producto,
+    obtener_productos
+)
+
 def menu():
     while True:
+        print("")
+        print("")
         print(" --MENU DE USUARIOS-- ")
         print("1. Registar usuario")
         print("2. Mostrar todos los usuarios")
@@ -18,7 +25,12 @@ def menu():
         print("5. Login de usuario")
         print("6. Actualizar usuario")
         print("7. Eliminar usuario")
-        print("8. Salir")
+        print("")
+        print("")
+        print("-- MENU DE PRODUCTOS --")
+        print("8. Registrar productos")
+        print("9. Mostrar los productos")
+        print("50. Salir")
 
         opcion = input("Elige una opcion: ")
 
@@ -62,8 +74,16 @@ def menu():
         elif opcion == "7":
             id_usuario = input("Id del usuario a eliminar: ")
             eliminar_usuario(id_usuario)
-
+            
         elif opcion == "8":
+            registrar_producto()
+
+
+        elif opcion == "9":
+            obtener_productos()
+
+
+        elif opcion == "50":
             print("Saliendo del sistema ")
             break
 
@@ -71,3 +91,4 @@ def menu():
             print("Opcion no valida. Intente de nuevo")
 
 menu()
+
