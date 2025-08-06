@@ -10,7 +10,8 @@ from usuarios import (
 
 from productos import(
     registrar_producto,
-    obtener_productos
+    obtener_productos,
+    buscar_producto_por_nombre
 )
 
 def menu():
@@ -30,6 +31,7 @@ def menu():
         print("-- MENU DE PRODUCTOS --")
         print("8. Registrar productos")
         print("9. Mostrar los productos")
+        print("10. Buscar productos por nombre")
         print("50. Salir")
 
         opcion = input("Elige una opcion: ")
@@ -74,7 +76,7 @@ def menu():
         elif opcion == "7":
             id_usuario = input("Id del usuario a eliminar: ")
             eliminar_usuario(id_usuario)
-            
+
         elif opcion == "8":
             registrar_producto()
 
@@ -82,6 +84,10 @@ def menu():
         elif opcion == "9":
             obtener_productos()
 
+        
+        elif opcion == "10":
+            nombre = input("Nombre del producto a buscar: ")
+            buscar_producto_por_nombre(nombre)
 
         elif opcion == "50":
             print("Saliendo del sistema ")

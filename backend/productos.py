@@ -58,11 +58,22 @@ def obtener_productos():
 # -- BUSCADOR DE PRODUCTOS --
 def buscar_producto_por_nombre(nombre_producto):
     conexion = conectar()
-    if not conexion
+    if not conexion:
         return
-    
     try:
         cursor = conexion.cursor()
         consulta = "SELECT * FROM  producto WHERE titulo_producto LIKE %s"
-        valor = 
-    
+        valor = f"%{nombre_producto}%"
+        cursor.execute(consulta, (valor,))
+        productos = cursor.fetchall()
+
+        if productos:
+            print("Productos eontrados con  '{nombre_producto}':")
+            for producto in productos: 
+                print(producto)
+        else:
+            print("No se encontraron productos con ese con ese nombre.")
+    except Exception as e:
+        print("Error al buscar producto: ", e)
+    finally:
+        conexion.close()    
