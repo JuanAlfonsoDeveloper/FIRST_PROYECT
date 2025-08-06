@@ -106,3 +106,20 @@ def actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock
     finally: 
         conexion.close()
 
+
+# -- ELIMINAR PRODUCTOS --
+def eliminar_productos(id_producto):
+    conexion = conectar()
+    if not conexion:
+        return
+    
+    try: 
+        cursor = conexion.cursor()
+        consulta = "DELETE FROM producto WHERE id_producto = %s"
+        cursor.execute(consulta, (id_producto,))
+        conexion.commit()
+        print("Producto eliminado correctamente ")
+    except Exception as e:
+        print("Error al eliminar el producto: ", e)
+    finally: 
+        conexion.close()

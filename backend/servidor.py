@@ -12,7 +12,8 @@ from productos import(
     registrar_producto,
     obtener_productos,
     buscar_producto_por_nombre,
-    actualizar_productos
+    actualizar_productos,
+    eliminar_productos
 )
 
 def menu():
@@ -30,10 +31,11 @@ def menu():
         print("")
         print("")
         print("-- MENU DE PRODUCTOS --")
-        print("8. Registrar productos")
-        print("9. Mostrar los productos")
-        print("10. Buscar productos por nombre")
-        print("11. Actualizar producto")
+        print("8. Registrar productos: ")
+        print("9. Mostrar los productos: ")
+        print("10. Buscar productos por nombre: ")
+        print("11. Actualizar producto: ")
+        print("12. Eliminar producto: ")
         print("50. Salir")
 
         opcion = input("Elige una opcion: ")
@@ -102,6 +104,10 @@ def menu():
             id_usuario = input("Digite el nuevo ID del usuario que publica: ")
             actualizar_productos(id_producto, titulo_producto, precio_producto, imagen_producto, descripcion_producto, stock_producto, id_usuario)
         
+        elif opcion == "12":
+            print("ELIMINAR PRODUCTO")
+            id_producto = input("Digite el ID del producto a eliminar: ")
+            eliminar_productos(id_producto)
 
         elif opcion == "50":
             print("Saliendo del sistema ")
