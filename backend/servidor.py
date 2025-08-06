@@ -11,7 +11,8 @@ from usuarios import (
 from productos import(
     registrar_producto,
     obtener_productos,
-    buscar_producto_por_nombre
+    buscar_producto_por_nombre,
+    actualizar_productos
 )
 
 def menu():
@@ -32,6 +33,7 @@ def menu():
         print("8. Registrar productos")
         print("9. Mostrar los productos")
         print("10. Buscar productos por nombre")
+        print("11. Actualizar producto")
         print("50. Salir")
 
         opcion = input("Elige una opcion: ")
@@ -88,6 +90,18 @@ def menu():
         elif opcion == "10":
             nombre = input("Nombre del producto a buscar: ")
             buscar_producto_por_nombre(nombre)
+
+        elif opcion == "11":
+            print("--ACTUALIZAR PRODUCTO--")
+            id_producto = input("Digite el ID del producto a actulizar: ")
+            titulo_producto = input("Digite el nuevo titulo: ")
+            precio_producto = input("Digite el nuevo precio: ")
+            imagen_producto = input("Digite el nuevo nombre o ruta de la imagen: ")
+            descripcion_producto = input("Digite la nueva descripcion: ")
+            stock_producto = input("Digite el nuevo stock del producto: ")
+            id_usuario = input("Digite el nuevo ID del usuario que publica: ")
+            actualizar_productos(id_producto, titulo_producto, precio_producto, imagen_producto, descripcion_producto, stock_producto, id_usuario)
+        
 
         elif opcion == "50":
             print("Saliendo del sistema ")

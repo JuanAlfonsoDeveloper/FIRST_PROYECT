@@ -77,3 +77,32 @@ def buscar_producto_por_nombre(nombre_producto):
         print("Error al buscar producto: ", e)
     finally:
         conexion.close()    
+
+
+# -- ACTUALIZAR PRODUCTOS --
+def actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario):
+    conexion = conectar()
+    if not conexion:
+        print("No se pudo establecer conexión con la base de datos.")
+        return
+    try:
+        cursor = conexion.cursor()
+        consulta = """
+        UPDATE producto 
+        SET titulo_producto = %s,
+            precio_producto = %s,
+            imagen_producto = %s,
+            descripcion_producto = %s,
+            stock_producto = %s,
+            id_usuario = %s
+        WHERE id_producto = %s
+        """
+        datos = (titulo, precio, imagen, descripcion, stock, id_usuario, id_producto)
+        cursor.execute(consulta, datos)
+        conexion.commit()
+        print("Producto actualizado correctamente")
+    except Exception as e:
+        print("Error al actualizar el producto:", e)
+    finally: 
+        conexion.close()
+
