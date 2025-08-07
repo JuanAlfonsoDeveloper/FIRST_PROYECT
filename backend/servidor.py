@@ -16,6 +16,12 @@ from productos import(
     eliminar_productos
 )
 
+from carrito import(
+    agregar_al_carrito
+)
+
+
+
 def menu():
     while True:
         print("")
@@ -36,6 +42,10 @@ def menu():
         print("10. Buscar productos por nombre: ")
         print("11. Actualizar producto: ")
         print("12. Eliminar producto: ")
+        print("")
+        print("")
+        print("-- MENU DEL CARRITO --")
+        print("13. Agregar producto al carrito")
         print("50. Salir")
 
         opcion = input("Elige una opcion: ")
@@ -108,6 +118,9 @@ def menu():
             print("ELIMINAR PRODUCTO")
             id_producto = input("Digite el ID del producto a eliminar: ")
             eliminar_productos(id_producto)
+
+        elif opcion == "13":
+            agregar_al_carrito()
 
         elif opcion == "50":
             print("Saliendo del sistema ")

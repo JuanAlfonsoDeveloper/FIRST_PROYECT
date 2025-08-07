@@ -46,7 +46,7 @@ CREATE TABLE PRODUCTO(
 CREATE TABLE CARRITO(
 	id_carrito INT AUTO_INCREMENT PRIMARY KEY,
     metodo_pago_carrito varchar(100) NOT NULL,
-    cantidad__carrito varchar(100) NOT NULL,
+    cantidad_carrito varchar(100) NOT NULL,
     id_usuario INT,
     id_producto INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),

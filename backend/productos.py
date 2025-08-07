@@ -123,3 +123,5 @@ def eliminar_productos(id_producto):
         print("Error al eliminar el producto: ", e)
     finally: 
         conexion.close()
+
+        
