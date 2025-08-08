@@ -28,8 +28,7 @@ def agregar_al_carrito():
     finally:
         conexion.close()
 
-
-# -- MOSTRAR CARRITO --
+# -- MOSTRAR CARRITO DEL USUARIO -- 
 def mostrar_carrito_por_usuario():
     print("-- VER CARRITO DEL USUARIO --")
     id_usuario = input("Ingrese el ID del usuario: ")
@@ -43,6 +42,7 @@ def mostrar_carrito_por_usuario():
         SELECT 
             carrito.id_carrito, 
             producto.titulo_producto, 
+            producto.precio_producto, 
             carrito.cantidad_carrito, 
             carrito.metodo_pago_carrito
         FROM carrito
@@ -54,8 +54,26 @@ def mostrar_carrito_por_usuario():
 
         if resultados:
             print("-- PRODUCTOS EN EL CARRITO --")
+            total_general = 0  
+            total_cantidad = 0  
             for fila in resultados:
-                print(f"ID Carrito: {fila[0]} | Producto: {fila[1]} | Cantidad: {fila[2]} | Método de Pago: {fila[3]}")
+                id_carrito = fila[0]
+                nombre_producto = fila[1]
+                precio = float(fila[2])  
+                cantidad = int(fila[3])  
+                metodo_pago = fila[4]
+                total = precio * cantidad
+                total_general += total  
+                total_cantidad += cantidad  
+
+                print(f"ID Carrito: {id_carrito} | Producto: {nombre_producto} | "
+                      f"Precio: {precio:.2f} | Cantidad: {cantidad} | "
+                      f"Total: {total:.2f} | Método de Pago: {metodo_pago}")
+            
+            print("\n-----------------------------------")
+            print(f"TOTAL DE PRODUCTOS: {total_cantidad}")
+            print(f"TOTAL GENERAL DEL CARRITO: {total_general:.2f}")
+            print("-----------------------------------")
         else: 
             print("El carrito está vacío o el usuario no existe.")
     except Exception as e: 
