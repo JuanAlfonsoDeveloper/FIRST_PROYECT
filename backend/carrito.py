@@ -80,3 +80,32 @@ def mostrar_carrito_por_usuario():
         print("Error al mostrar el carrito:", e)
     finally:
         conexion.close()
+
+# -- MOSTRAR CARRITO DEL USUARIO -- 
+def actualizar_cantidad_carrito():
+    print("--ACTUALIZAR CATIDAD DEL CARRITO --")
+    id_carrito = input("Ingrese el ID del carrito: ")
+    nueva_cantidad = input("Ingrese la nueva cantidad: ")
+    
+    conexion = conectar()
+    if not conexion:
+        print("Error al conectar con la base de datos")
+        return
+    try:
+        cursor = conexion.cursor()
+        consulta = """
+        UPDATE carrito 
+        SET cantidad_carrito = %s
+        WHERE id_carrito = %s
+        """
+        cursor.execute(consulta, (nueva_cantidad, id_carrito))
+        conexion.commit()
+        
+        if cursor.rowcount > 0:
+            print("Cantidad actualizada exitosamente ")
+        else:
+            print("No se encontro el carrito con ese ID ")
+    except Exception as e:
+        print("Error al actulizar la cantidad: ", e)
+    finally: 
+        conexion.close()

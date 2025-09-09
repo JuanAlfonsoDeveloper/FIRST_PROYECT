@@ -18,7 +18,8 @@ from productos import(
 
 from carrito import(
     agregar_al_carrito,
-    mostrar_carrito_por_usuario
+    mostrar_carrito_por_usuario,
+    actualizar_cantidad_carrito
 )
 
 
@@ -48,6 +49,7 @@ def menu():
         print("-- MENU DEL CARRITO --")
         print("13. Agregar producto al carrito")
         print("14. Mostrar carrito del usuario")
+        print("15. Actualizar carrito")
         print("50. Salir")
 
         opcion = input("Elige una opcion: ")
@@ -126,6 +128,9 @@ def menu():
 
         elif opcion == "14":
             mostrar_carrito_por_usuario()
+            
+        elif opcion == "15":
+            actualizar_cantidad_carrito()
 
         elif opcion == "50":
             print("Saliendo del sistema ")
