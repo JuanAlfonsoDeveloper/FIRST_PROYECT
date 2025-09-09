@@ -20,7 +20,8 @@ from carrito import(
     agregar_al_carrito,
     mostrar_carrito_por_usuario,
     actualizar_cantidad_carrito,
-    eliminar_productos_carrio
+    eliminar_productos_carrio,
+    vaciar_carrito_usuario
 )
 
 
@@ -52,6 +53,7 @@ def menu():
         print("14. Mostrar carrito del usuario")
         print("15. Actualizar carrito")
         print("16. Eliminar producto del carrito carrito")
+        print("17. Vaciar Carrito")
 
         print("50. Salir")
 
@@ -137,6 +139,9 @@ def menu():
             
         elif opcion == "16":
             eliminar_productos_carrio()
+            
+        elif opcion == "17":
+            vaciar_carrito_usuario()
 
         elif opcion == "50":
             print("Saliendo del sistema ")

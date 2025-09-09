@@ -82,7 +82,7 @@ def mostrar_carrito_por_usuario():
         conexion.close()
 
 
-# -- MOSTRAR CARRITO DEL USUARIO -- 
+# -- ACTUALIZAR CARRITO -- 
 def actualizar_cantidad_carrito():
     print("--ACTUALIZAR CATIDAD DEL CARRITO --")
     id_carrito = input("Ingrese el ID del carrito: ")
@@ -130,6 +130,32 @@ def eliminar_productos_carrio():
             print("No se encontro producto con ese ID en el carrito")
     except Exception as e:
         print("Error al eliminar producto del carrito", e)
+    finally:
+        conexion.close()
+
+
+
+
+
+# -- VACIAR CARRITO  --
+def vaciar_carrito_usuario():
+    print("-- VACIAR CARRITO --")
+    id_usuario = input("Ingrese el ID del usuario ")
+    conexion = conectar()
+    if not conexion:
+        print("Error al conectar con la base de datos ")
+        return
+    try:
+        cursor = conexion.cursor()
+        consulta = """ DELETE FROM carrito WHERE id_usuario = %s """
+        cursor.execute(consulta,(id_usuario, ))
+        conexion.commit()
+        if cursor.rowcount > 0:
+                print(f"Carrito del usuario {id_usuario} vaciado exitosamente ")
+        else:
+            print("El carrito ya esta vacio o el usuario no existe ")
+    except Exception as e:
+        print("Error al vaciar el carrito ", e)
     finally:
         conexion.close()
         

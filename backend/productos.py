@@ -111,6 +111,7 @@ def actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock
 def eliminar_productos(id_producto):
     conexion = conectar()
     if not conexion:
+        print("No se pudo establecer conexión con la base de datos.")
         return
     
     try: 
@@ -124,4 +125,26 @@ def eliminar_productos(id_producto):
     finally: 
         conexion.close()
 
-        
+
+
+# -- VACIAR CARRITO DE UN USUARIO --
+def vaciar_carrio_usuario():
+    print("-- VACIAR CARRITO --")
+    id_usuario = input("Ingre el ID del usuario: ")
+    conexion = conectar()
+    if not conexion: 
+        print("No se pudo establecer conexión con la base de datos.")
+        return
+    try:
+        cursor = conexion.cursor()
+        consulta = "DELETE FROM carrito WHERE id_usuario = %s"
+        cursor.execute(consulta, (id_usuario, ))
+        conexion.commit()
+        if cursor.rowcount > 0:
+            print(f"Carrito del usuario {id_usuario} vaciado exitosamente" )
+        else:
+            print("El carrito ya estaba vaio o el usuario no existe. ")
+    except Exception as e:
+        print("Error al vaciar carrito", e)
+    finally:
+        conexion.close()
