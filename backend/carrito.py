@@ -81,6 +81,7 @@ def mostrar_carrito_por_usuario():
     finally:
         conexion.close()
 
+
 # -- MOSTRAR CARRITO DEL USUARIO -- 
 def actualizar_cantidad_carrito():
     print("--ACTUALIZAR CATIDAD DEL CARRITO --")
@@ -109,3 +110,26 @@ def actualizar_cantidad_carrito():
         print("Error al actulizar la cantidad: ", e)
     finally: 
         conexion.close()
+
+# -- ELIMINAR PRODUCTOS DEL CARRITO --
+def eliminar_productos_carrio():
+    print("--ELIMINAR PRODUCTO DEL CARRITO --")
+    id_carrito = input("Digite el ID del carrito a eliminar: ")
+    conexion = conectar()
+    if not conexion:
+        print("Error al conectar con la base de datos")
+        return
+    try: 
+        cursor = conexion.cursor()
+        consulta = """ DELETE FROM carrito WHERE id_carrito = %s """
+        cursor.execute(consulta,(id_carrito))
+        conexion.commit()
+        if cursor.rowcount > 0:
+            print("Producto eliminado exitosamente del carrito")
+        else:
+            print("No se encontro producto con ese ID en el carrito")
+    except Exception as e:
+        print("Error al eliminar producto del carrito", e)
+    finally:
+        conexion.close()
+        
