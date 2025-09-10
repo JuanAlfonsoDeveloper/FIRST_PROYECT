@@ -5,7 +5,7 @@ def agregar_al_carrito():
     print("--AGREGAR PRODUCTOS AL CARRITO--")
     id_usuario = input("Id del usuario: ")
     id_producto = input("Id del producto: ")
-    cantidad_carrito = input("Cantidad deseada : ")
+    cantidad_carrito = int(input("Cantidad deseada : "))
 
     conexion = conectar()
     if not conectar:
@@ -14,17 +14,31 @@ def agregar_al_carrito():
     
     try: 
         cursor = conexion.cursor()
+        # 1. Verificar stock disponible del producto
+        consulta_stock = " SELECT stock_producto FROM producto WHERE id_producto = %s"
+        cursor.execute(consulta_stock, (id_producto,))
+        resultado = cursor.fetchone()
+        if not resultado:
+            print("El producto no existe. ")
+            return
+        stock_disponible = int(resultado[0])
+        
+        if cantidad_carrito > stock_disponible:
+            print(f"No hay suficiente stock: Stock disponible: {stock_disponible}")
+            return
+        
+        # 2. Verificar stock disponible del producto
         consulta = """
-        INSERT INTO carrito (id_usuario, id_producto, cantidad_carrito) 
-        VALUES (%s, %s, %s)
+        INSERT INTO carrito (metodo_pago_carrito, cantidad_carrito, id_usuario, id_producto) 
+        VALUES (%s, %s, %s, %s)
 
         """
-        datos = (id_usuario, id_producto, cantidad_carrito )
+        datos = ("pendiente", cantidad_carrito, id_usuario, id_producto)
         cursor.execute(consulta, datos)
         conexion.commit()
         print("Producto agragado al carrito exitosamente. ")
     except Exception as e: 
-        print("Error al agregar poducto al carrito:", e)
+        print("Error al agregar producto al carrito:", e)
     finally:
         conexion.close()
 
@@ -122,7 +136,7 @@ def eliminar_productos_carrio():
     try: 
         cursor = conexion.cursor()
         consulta = """ DELETE FROM carrito WHERE id_carrito = %s """
-        cursor.execute(consulta,(id_carrito))
+        cursor.execute(consulta,(id_carrito,))
         conexion.commit()
         if cursor.rowcount > 0:
             print("Producto eliminado exitosamente del carrito")
@@ -158,4 +172,6 @@ def vaciar_carrito_usuario():
         print("Error al vaciar el carrito ", e)
     finally:
         conexion.close()
+        
+
         
