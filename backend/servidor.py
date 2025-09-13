@@ -21,7 +21,8 @@ from carrito import(
     mostrar_carrito_por_usuario,
     actualizar_cantidad_carrito,
     eliminar_productos_carrio,
-    vaciar_carrito_usuario
+    vaciar_carrito_usuario,
+    confirmar_compra
 )
 
 
@@ -54,6 +55,7 @@ def menu():
         print("15. Actualizar carrito")
         print("16. Eliminar producto del carrito carrito")
         print("17. Vaciar Carrito")
+        print("18. Confirmar compra")
 
         print("50. Salir")
 
@@ -142,6 +144,9 @@ def menu():
             
         elif opcion == "17":
             vaciar_carrito_usuario()
+        
+        elif opcion == "18":
+            confirmar_compra()
 
         elif opcion == "50":
             print("Saliendo del sistema ")

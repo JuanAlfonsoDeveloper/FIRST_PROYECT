@@ -148,9 +148,6 @@ def eliminar_productos_carrio():
         conexion.close()
 
 
-
-
-
 # -- VACIAR CARRITO  --
 def vaciar_carrito_usuario():
     print("-- VACIAR CARRITO --")
@@ -174,4 +171,30 @@ def vaciar_carrito_usuario():
         conexion.close()
         
 
-        
+# -- CONFIRMAR COMPRA  --
+def confirmar_compra():
+    print("-- COMFIRMAR COMPRA --")
+    id_usuario = input("Ingrese el ID del usuario ")
+    metodo_pago = input("Metodo de Pago (Tarjeta / Efectivo  / Nequi / etc .): ")
+    
+    conexion = conectar()
+    if not conexion:
+        print("Error al conectar con la base de datos ")
+        return
+    try:
+        cursor = conexion.cursor()
+        consulta = """ 
+        UPDATE carrito 
+        SET metodo_pago_carrito = %s
+        WHERE id_usuario = %s AND metodo_pago_carrito = 'pendiente'
+        """
+        cursor.execute(consulta,(metodo_pago, id_usuario, ))
+        conexion.commit()
+        if cursor.rowcount > 0:
+                print(f"Compra confirmada con metodo de pago:  {metodo_pago} ")
+        else:
+            print("No hay productos pendientes en el carrito para confirmar")
+    except Exception as e:
+        print("Error al confirmar la compra ", e)
+    finally:
+        conexion.close()
