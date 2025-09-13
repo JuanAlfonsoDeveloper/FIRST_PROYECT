@@ -102,12 +102,15 @@ def login_usuario(correo, contraseña):
         return
     try:
         cursor = conexion.cursor()
-        consulta = "SELECT * FROM usuario WHERE correo_usuario = %s AND contraseña_usuario = %s"
+        consulta = """ SELECT id_usuario , nombre_usuario, id_rol, From usuario 
+        WHERE  correo_usuario = %s AND contraseña_usuario = %s 
+        
+        """
         contraseña_cifrada = hashlib.sha256(contraseña.encode()).hexdigest()
         cursor.execute(consulta, (correo, contraseña_cifrada))
         usuario = cursor.fetchone()
         if usuario:
-            print("Login exitoso")
+            print(f"Login Exitoso. Bienvenido {usuario[1]}")
             return usuario
         else: 
             print("correo o contraseña incorrectos")

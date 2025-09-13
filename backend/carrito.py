@@ -126,7 +126,7 @@ def actualizar_cantidad_carrito():
         conexion.close()
 
 # -- ELIMINAR PRODUCTOS DEL CARRITO --
-def eliminar_productos_carrio():
+def eliminar_producto_carrio():
     print("--ELIMINAR PRODUCTO DEL CARRITO --")
     id_carrito = input("Digite el ID del carrito a eliminar: ")
     conexion = conectar()
