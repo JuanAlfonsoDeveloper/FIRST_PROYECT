@@ -71,7 +71,7 @@ def menu_usuario():
         else:
             print("Opcion no valida. ")
             
-# -------------------------- MENU CARITO --------------------------
+# -------------------------- MENU PRODUCTOS --------------------------
 
 def menu_productos():
     while True:
@@ -100,13 +100,51 @@ def menu_productos():
             descripcion = input("Nueva descripcion: ")
             stock = input("Nuevo stock: ")
             id_usuario = input("ID del producto a eliminar: ")
+            actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+        elif opcion == "5":
+            id_producto = input("ID del producto a eliminar: ")
             eliminar_productos(id_producto)
         elif opcion == "0":
             break
         else:
             print("Opcion no valida. ")
-            
 
+# -------------------------- MENU CARRITO --------------------------
+       
+def menu_carrito():
+    while True:
+        print("\n --- MENU DE PRODUCTOS ---")
+        print("1. Agregar producto al carrito")
+        print("2. Mostrar productos del carrito")
+        print("3. Actualizar cantidad del carrito")
+        print("4. Eliminar producto del carrito")
+        print("5. Vaciar carrito")
+        print("6. Confirmar compra")
+        print("0. Confirmar compra")
+        
+        
+        opcion = input("Elige una opcion: ")
+        
+        if opcion == "1":
+            agregar_al_carrito()
+        elif opcion == "2":
+            mostrar_carrito_por_usuario()
+        elif opcion == "3":
+            actualizar_cantidad_carrito()
+        elif opcion == "4":
+            eliminar_producto_carrio()
+        elif opcion == "5":
+            vaciar_carrito_usuario()
+        elif opcion == "6:":
+            confirmar_compra()
+        elif opcion == "0":
+            break
+        else:
+            print("Opcion no valida. ")
+            
+            
+# -------------------------- MENU CARRITO --------------------------
+    
 
 
 
