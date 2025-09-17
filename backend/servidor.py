@@ -57,8 +57,31 @@ def menu_usuario():
         elif opcion == "5":
             correo = input("Correo :")
             contraseña = input("Contraseña :")
+            login_usuario(correo, contraseña)
+        elif opcion == "6":
+            id_usuario = input("ID del usuario a actualizar: ")
+            nombre = input("Nuevo nombre: ")
+            apellido = input("Nuevo apellido: ")
+            correo = input("Nuevo correo: ")
+            telefono = input("Nuevo telefono: ")
+            direccion = input("Nueva direccion: ")
+            actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, direccion)
+        elif opcion == "0":
+            break
+        else:
+            print("Opcion no valida. ")
             
-            
+# -------------------------- MENU CARITO --------------------------
+
+def menu_productos():
+    while True:
+        print("\n --- MENU DE PRODUCTOS ---")
+        print("1. Registrar producto")
+        print("2. Mostrar productos")
+        print("3. Buscar producto por nombre")
+        print("4. Actualizar producto")
+        print("5. Eliminar producto")
+        print("0. Volver al menu principal")
 
 
 
