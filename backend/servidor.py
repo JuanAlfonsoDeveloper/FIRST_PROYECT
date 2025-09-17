@@ -83,7 +83,29 @@ def menu_productos():
         print("5. Eliminar producto")
         print("0. Volver al menu principal")
 
-
+        opcion = input("Elige una opcion: ")
+        
+        if opcion == "1":
+            registrar_producto()
+        elif opcion == "2":
+            obtener_productos()
+        elif opcion == "3":
+            nombre = input("Nombre del producto: ")
+            buscar_producto_por_nombre(nombre)
+        elif opcion == "4":
+            id_producto = input("ID del producto a actualizar: ")
+            titulo = input("Nuevo titulo: ")
+            precio = input("Nuevo titulo: ")
+            imagen = input("Nueva ruta de la imagen / URL")
+            descripcion = input("Nueva descripcion: ")
+            stock = input("Nuevo stock: ")
+            id_usuario = input("ID del producto a eliminar: ")
+            eliminar_productos(id_producto)
+        elif opcion == "0":
+            break
+        else:
+            print("Opcion no valida. ")
+            
 
 
 
