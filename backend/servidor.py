@@ -113,15 +113,14 @@ def menu_productos():
        
 def menu_carrito():
     while True:
-        print("\n --- MENU DE PRODUCTOS ---")
+        print("\n --- MENU DE CARRITO ---")
         print("1. Agregar producto al carrito")
         print("2. Mostrar productos del carrito")
         print("3. Actualizar cantidad del carrito")
         print("4. Eliminar producto del carrito")
         print("5. Vaciar carrito")
         print("6. Confirmar compra")
-        print("0. Confirmar compra")
-        
+        print("0. Volver al menu principal")
         
         opcion = input("Elige una opcion: ")
         
@@ -143,10 +142,33 @@ def menu_carrito():
             print("Opcion no valida. ")
             
             
-# -------------------------- MENU CARRITO --------------------------
+# -------------------------- MENU PRINCIPAL --------------------------
+def menu_principal():
+    while True:
+        print("\n --- MENU DE PRINCIPAL ---")
+        print("1. Usuarios")
+        print("2. Productos")
+        print("3. Carrito")
+        print("0. Salir")
+
+        opcion = input("Elige una opcion: ")
+        
+        if opcion == "1":
+            menu_usuario()
+        elif opcion == "2":
+            menu_productos()
+        elif opcion == "3":
+            menu_carrito()
+        elif opcion == "0":
+            break
+        else: 
+            print("Opcion no valida. ")
+            
+if __name__ == "__main__":
+    menu_principal()
     
 
-
+# --- QUEDA PENDIENTE HACER PRUEBAS DE CADA FUNCION DE LOS MENUS 
 
 
 
