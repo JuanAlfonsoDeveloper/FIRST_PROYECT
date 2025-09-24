@@ -98,11 +98,11 @@ def menu_productos():
         elif opcion == "4":
             id_producto = input("ID del producto a actualizar: ")
             titulo = input("Nuevo titulo: ")
-            precio = input("Nuevo titulo: ")
-            imagen = input("Nueva ruta de la imagen / URL")
+            precio = input("Nuevo precio: ")
+            imagen = input("Nueva ruta de la imagen / URL: ")
             descripcion = input("Nueva descripcion: ")
             stock = input("Nuevo stock: ")
-            id_usuario = input("ID del producto a eliminar: ")
+            id_usuario = input("ID del usuario que publica: ")
             actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
         elif opcion == "5":
             id_producto = input("ID del producto a eliminar: ")
