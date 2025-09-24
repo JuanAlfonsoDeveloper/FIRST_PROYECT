@@ -148,7 +148,7 @@ def menu_carrito():
 # -------------------------- MENU PRINCIPAL --------------------------
 def menu_principal():
     while True:
-        print("\n --- MENU DE PRINCIPAL ---")
+        print("\n --- MENU  PRINCIPAL ---")
         print("1. Usuarios")
         print("2. Productos")
         print("3. Carrito")
@@ -171,8 +171,24 @@ if __name__ == "__main__":
     menu_principal()
     
 
-# --- 
+# -------------------------- MENU ROLES --------------------------
 
+def mostrar_menu_por_rol(usuario):
+    id_usuario, nombre_usuario, id_rol = usuario
+    while True:
+        print("\n --- MENU PRINCIPAL ---")
+        if id_rol == 1: #Administrador
+            print("1. Gestionar Usuarios: ")
+            print("2. Gestionar productos: ")
+            print("3. Ver reportes: ")
+            print("4. Cerrar sesion: ")
+            opcion = input("Seleccione una opcion: ")
+            
+            if opcion == "1":
+                print("Aqui iria la gestion de usuarios...")
+            elif opcion == "2":
+
+# ------------------ QUEDA PENDIENTE HACER LOS MENUS DE ROLES -----------------------------------
 
 
 
