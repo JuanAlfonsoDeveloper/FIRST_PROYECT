@@ -66,6 +66,9 @@ def menu_usuario():
             telefono = input("Nuevo telefono: ")
             direccion = input("Nueva direccion: ")
             actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, direccion)
+        elif opcion == "7":
+            id_usuario = input("ID del usuario a eliminar: ")
+            eliminar_usuario(id_usuario)
         elif opcion == "0":
             break
         else:
@@ -168,7 +171,7 @@ if __name__ == "__main__":
     menu_principal()
     
 
-# --- QUEDA PENDIENTE HACER PRUEBAS DE CADA FUNCION DE LOS MENUS 
+# --- 
 
 
 

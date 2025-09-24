@@ -102,7 +102,8 @@ def login_usuario(correo, contraseña):
         return
     try:
         cursor = conexion.cursor()
-        consulta = """ SELECT id_usuario , nombre_usuario, id_rol, From usuario 
+        consulta = """ SELECT id_usuario , nombre_usuario, id_rol
+        FROM usuario 
         WHERE  correo_usuario = %s AND contraseña_usuario = %s 
         
         """
