@@ -26,6 +26,75 @@ from carrito import(
 )
 
 
+# -------------------------- MENU ROLES --------------------------
+
+def mostrar_menu_por_rol(usuario):
+    id_usuario, nombre_usuario, id_rol = usuario
+    while True:
+        print("\n --- MENU PRINCIPAL ---")
+        if id_rol == 1: #Administrador
+            print("1. Gestionar Usuarios: ")
+            print("2. Gestionar productos: ")
+            print("3. Ver reportes: ")
+            print("4. Cerrar sesion: ")
+            opcion = input("Seleccione una opcion: ")
+            
+            if opcion == "1":
+                print("Aqui iria la gestion de usuarios...")
+            elif opcion == "2":
+                print("Aqui iria la gestion de productos...")
+            elif opcion == "3":
+                print("Aqui se ven los reportes...")
+            elif opcion == "4":
+                print("Cerrando sesion ...")
+                break
+            else: 
+                print("Opcion no valida")
+        
+        elif id_rol == 2: #Administrador
+            print("1. Agregar producto: ")
+            print("2. Actualizar productos: ")
+            print("3. Eliminar producto ")
+            print("4. Ver productos")
+            print("5. Cerrar sesion: ")
+            opcion = input("Seleccione una opcion: ")
+            
+            if opcion == "1":
+                print("Funcion agregar producto")
+            elif opcion == "2":
+                print("Funcion actualizar productos")
+            elif opcion == "3":
+                print("Funcion Eliminar productos")
+            elif opcion == "4":
+                print("Funcion ver productos")
+            elif opcion == "5":
+                print("Cerrando sesion ...")
+                break
+            else: 
+                print("Opcion no valida")
+                
+        elif id_rol == 3: #Cliente
+            print("1. Ver productos : ")
+            print("2. Agregar al carrito: ")
+            print("3. Ver carrito")
+            print("4. Comfirmar compra")
+            print("5. Cerrar sesion: ")
+            opcion = input("Seleccione una opcion: ")
+            
+            if opcion == "1":
+                print("Funcion ver productos: ")
+            elif opcion == "2":
+                print("Funcion agregar al carrito")
+            elif opcion == "3":
+                print("Funcion ver carrito")
+            elif opcion == "4":
+                print("Funcion comfirmar compra")
+            elif opcion == "5":
+                print("Cerrando sesion ...")
+                break
+            else: 
+                print("Opcion no valida")
+
 # -------------------------- MENU USUARIOS --------------------------
 
 def menu_usuario():
@@ -57,7 +126,9 @@ def menu_usuario():
         elif opcion == "5":
             correo = input("Correo :")
             contraseña = input("Contraseña :")
-            login_usuario(correo, contraseña)
+            usuario = login_usuario(correo, contraseña)
+            if usuario: 
+                mostrar_menu_por_rol(usuario)
         elif opcion == "6":
             id_usuario = input("ID del usuario a actualizar: ")
             nombre = input("Nuevo nombre: ")
@@ -137,7 +208,7 @@ def menu_carrito():
             eliminar_producto_carrio()
         elif opcion == "5":
             vaciar_carrito_usuario()
-        elif opcion == "6:":
+        elif opcion == "6":
             confirmar_compra()
         elif opcion == "0":
             break
@@ -171,24 +242,10 @@ if __name__ == "__main__":
     menu_principal()
     
 
-# -------------------------- MENU ROLES --------------------------
 
-def mostrar_menu_por_rol(usuario):
-    id_usuario, nombre_usuario, id_rol = usuario
-    while True:
-        print("\n --- MENU PRINCIPAL ---")
-        if id_rol == 1: #Administrador
-            print("1. Gestionar Usuarios: ")
-            print("2. Gestionar productos: ")
-            print("3. Ver reportes: ")
-            print("4. Cerrar sesion: ")
-            opcion = input("Seleccione una opcion: ")
-            
-            if opcion == "1":
-                print("Aqui iria la gestion de usuarios...")
-            elif opcion == "2":
-
-# ------------------ QUEDA PENDIENTE HACER LOS MENUS DE ROLES -----------------------------------
+                
+                
+# ------------------ QUEDA PENDIENTE HACER LAS PREUBAS A LOS MENUS 2 Y 3 DE LOS ROLES -----------------------------------
 
 
 
