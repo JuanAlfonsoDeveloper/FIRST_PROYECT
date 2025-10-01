@@ -40,9 +40,9 @@ def mostrar_menu_por_rol(usuario):
             opcion = input("Seleccione una opcion: ")
             
             if opcion == "1":
-                print("Aqui iria la gestion de usuarios...")
+                menu_usuario()
             elif opcion == "2":
-                print("Aqui iria la gestion de productos...")
+                menu_productos()
             elif opcion == "3":
                 print("Aqui se ven los reportes...")
             elif opcion == "4":
@@ -51,7 +51,7 @@ def mostrar_menu_por_rol(usuario):
             else: 
                 print("Opcion no valida")
         
-        elif id_rol == 2: #Administrador
+        elif id_rol == 2: #Vendedor
             print("1. Agregar producto: ")
             print("2. Actualizar productos: ")
             print("3. Eliminar producto ")
@@ -60,13 +60,21 @@ def mostrar_menu_por_rol(usuario):
             opcion = input("Seleccione una opcion: ")
             
             if opcion == "1":
-                print("Funcion agregar producto")
+                registrar_producto()
             elif opcion == "2":
-                print("Funcion actualizar productos")
+                id_producto = input("ID del producto a actualizar: ")
+                titulo = input("Digite el nuevo titulo del producto desea actualizar :")
+                precio = input("Digite el nuevo precio del producto que desea actualizar :")
+                imagen = input("Digite la nueva imagen que desea actualizar :")
+                descripcion = input("Digite la nueva descripcion que desea actualizar :")
+                stock = input("Digite el nuevo stock que desea actualizar :")
+                actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+                
             elif opcion == "3":
-                print("Funcion Eliminar productos")
+                id_producto = input("ID del producto a eliminar: ")
+                eliminar_productos(id_producto)
             elif opcion == "4":
-                print("Funcion ver productos")
+                obtener_productos()
             elif opcion == "5":
                 print("Cerrando sesion ...")
                 break
@@ -82,13 +90,15 @@ def mostrar_menu_por_rol(usuario):
             opcion = input("Seleccione una opcion: ")
             
             if opcion == "1":
-                print("Funcion ver productos: ")
+                obtener_productos()
             elif opcion == "2":
-                print("Funcion agregar al carrito")
+                id_producto = input("ID del producto a agregar: ")
+                cantidad = input("Cantidad: ")
+                agregar_al_carrito(id_producto,cantidad)
             elif opcion == "3":
-                print("Funcion ver carrito")
+                mostrar_carrito_por_usuario(id_usuario)
             elif opcion == "4":
-                print("Funcion comfirmar compra")
+                confirmar_compra(id_usuario)
             elif opcion == "5":
                 print("Cerrando sesion ...")
                 break
@@ -245,7 +255,7 @@ if __name__ == "__main__":
 
                 
                 
-# ------------------ QUEDA PENDIENTE HACER LAS PREUBAS A LOS MENUS 2 Y 3 DE LOS ROLES -----------------------------------
+# ------------------ QUEDA PENDIENTE HACER LAS PREUBAS A LOS MENUS ROLES -----------------------------------
 
 
 
