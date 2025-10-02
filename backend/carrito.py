@@ -1,28 +1,35 @@
 from db import conectar
 
 # -- AGRAGAR PRODUCTOS AL CARRITO -- 
-def agregar_al_carrito():
+def agregar_al_carrito(id_usuario=None, id_producto=None, cantidad_carrito=None):
     print("--AGREGAR PRODUCTOS AL CARRITO--")
-    id_usuario = input("Id del usuario: ")
-    id_producto = input("Id del producto: ")
-    cantidad_carrito = int(input("Cantidad deseada : "))
+    if not id_usuario:
+        id_usuario = input("Id del usuario: ")
+    if not id_producto:
+        id_producto = input("Id del producto: ")
+    if not cantidad_carrito:
+        cantidad_carrito = int(input("Cantidad deseada : "))
 
     conexion = conectar()
-    if not conectar:
+    if not conexion:
         print("Error al conectar con la base de datos")
         return
     
-    try: 
+    try:
+        cantidad_carrito = int(cantidad_carrito)
         cursor = conexion.cursor()
         # 1. Verificar stock disponible del producto
         consulta_stock = " SELECT stock_producto FROM producto WHERE id_producto = %s"
         cursor.execute(consulta_stock, (id_producto,))
         resultado = cursor.fetchone()
+        
         if not resultado:
             print("El producto no existe. ")
             return
         stock_disponible = int(resultado[0])
-        
+        if cantidad_carrito <= 0:
+            print("Error la cantidad debe ser mayor que cero.")
+            return
         if cantidad_carrito > stock_disponible:
             print(f"No hay suficiente stock: Stock disponible: {stock_disponible}")
             return
@@ -43,9 +50,8 @@ def agregar_al_carrito():
         conexion.close()
 
 # -- MOSTRAR CARRITO DEL USUARIO -- 
-def mostrar_carrito_por_usuario():
-    print("-- VER CARRITO DEL USUARIO --")
-    id_usuario = input("Ingrese el ID del usuario: ")
+def mostrar_carrito_por_usuario(id_usuario):
+    
     conexion = conectar()
     if not conexion:
         print("Error al conectar con la base de datos")
@@ -172,9 +178,12 @@ def vaciar_carrito_usuario():
         
 
 # -- CONFIRMAR COMPRA  --
-def confirmar_compra():
+def confirmar_compra(id_usuario=None):
     print("-- COMFIRMAR COMPRA --")
-    id_usuario = input("Ingrese el ID del usuario ")
+    if not id_usuario:
+        id_usuario = input("Ingrese el ID del usuario:")
+    
+    
     metodo_pago = input("Metodo de Pago (Tarjeta / Efectivo  / Nequi / etc .): ")
     
     conexion = conectar()

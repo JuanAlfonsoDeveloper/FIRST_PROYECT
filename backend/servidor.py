@@ -93,8 +93,11 @@ def mostrar_menu_por_rol(usuario):
                 obtener_productos()
             elif opcion == "2":
                 id_producto = input("ID del producto a agregar: ")
-                cantidad = input("Cantidad: ")
-                agregar_al_carrito(id_producto,cantidad)
+                try: 
+                    cantidad = int(input("Cantidad: "))
+                except ValueError:
+                    print("Error la cantidad debe ser un numero entero. ")                
+                agregar_al_carrito(id_usuario,id_producto,cantidad)
             elif opcion == "3":
                 mostrar_carrito_por_usuario(id_usuario)
             elif opcion == "4":
@@ -255,7 +258,7 @@ if __name__ == "__main__":
 
                 
                 
-# ------------------ QUEDA PENDIENTE HACER LAS PREUBAS A LOS MENUS ROLES -----------------------------------
+# ------------------ QUEDA PENDIENTE HACER LAS PREUBAS A LOS MENUS ROLES Y LAS DEMAS -----------------------------------
 
 
 
