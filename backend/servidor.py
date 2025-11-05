@@ -20,7 +20,7 @@ from carrito import(
     agregar_al_carrito,
     mostrar_carrito_por_usuario,
     actualizar_cantidad_carrito,
-    eliminar_producto_carrio,
+    eliminar_producto_carrito,
     vaciar_carrito_usuario,
     confirmar_compra
 )
@@ -85,8 +85,10 @@ def mostrar_menu_por_rol(usuario):
             print("1. Ver productos : ")
             print("2. Agregar al carrito: ")
             print("3. Ver carrito")
-            print("4. Comfirmar compra")
-            print("5. Cerrar sesion: ")
+            print("4. Eliminar producto carrito")
+            print("5. Vaciar carrito")
+            print("6. Comfirmar compra")
+            print("7. Cerrar sesion: ")
             opcion = input("Seleccione una opcion: ")
             
             if opcion == "1":
@@ -101,8 +103,12 @@ def mostrar_menu_por_rol(usuario):
             elif opcion == "3":
                 mostrar_carrito_por_usuario(id_usuario)
             elif opcion == "4":
-                confirmar_compra(id_usuario)
+                eliminar_producto_carrito(id_usuario)
             elif opcion == "5":
+                vaciar_carrito_usuario(id_usuario)
+            elif opcion == "6":
+                confirmar_compra(id_usuario)
+            elif opcion == "7":
                 print("Cerrando sesion ...")
                 break
             else: 
@@ -121,35 +127,66 @@ def menu_usuario():
         print("6. Actulizar usuario")
         print("7. Eliminar usuario")
         print("0. Volver al menu principal")
-        
         opcion = input("Elige una opcion: ")
         
+
+        #  Opcion 1. Registrar Usuario
         if opcion == "1":
-            registrar_usuario()
+            print("--- REGISTRAR USUARIOS ---")
+            nombre = input("Digite su nombre: ").strip()
+            apellido = input("Digite su apellido: ").strip()
+            correo = input("Digite su correo: ").strip()
+            telefono = input("Digite su telefono: ").strip()
+            contraseña = input("Digite su contraseña: ").strip()
+            direccion = input("Digite su direccion: ").strip()
+            id_rol = input("Digite su codigo del rol: ").strip()
+            
+            
+            if not (nombre and apellido and correo and telefono and contraseña and direccion and id_rol):
+                print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+            else: 
+                registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol)
+            
+         #  Opcion 2. Mostrar todos los usuarios
         elif opcion == "2":
             obtener_usuario()
+            
+         #  Opcion 3. Busqueda por correo
         elif opcion == "3":
             correo = input("Correo a buscar: ")
             usuario = obtener_usuario_por_correo(correo)
             print("Resultado", usuario if usuario else "Usuario no encontrado")
+            
+        #  Opcion 4. Busqueda por telefono
         elif opcion == "4":
             telefono = input("Telefono a buscar: ")
             usuario = obtener_usuario_por_telefono(telefono)
             print("Resultado", usuario if usuario else "Usuario no encontrado")
+        
+        #  Opcion 5. Login
         elif opcion == "5":
             correo = input("Correo :")
             contraseña = input("Contraseña :")
             usuario = login_usuario(correo, contraseña)
             if usuario: 
                 mostrar_menu_por_rol(usuario)
+                
+        #  Opcion 6. Actualizar
         elif opcion == "6":
-            id_usuario = input("ID del usuario a actualizar: ")
-            nombre = input("Nuevo nombre: ")
-            apellido = input("Nuevo apellido: ")
-            correo = input("Nuevo correo: ")
-            telefono = input("Nuevo telefono: ")
-            direccion = input("Nueva direccion: ")
-            actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, direccion)
+            id_usuario = input("ID del usuario a actualizar: ").strip()
+            nombre = input("Nuevo nombre: ").strip()
+            apellido = input("Nuevo apellido: ").strip()
+            correo = input("Nuevo correo: ").strip()
+            telefono = input("Nuevo telefono: ").strip()
+            contraseña = input("Nueva contraseña ").strip()
+            direccion = input("Nueva direccion: ").strip()
+            
+            
+            
+            if not (id_usuario and nombre and apellido and correo and telefono and contraseña and  direccion  ):
+                print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+            else: 
+                actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
         elif opcion == "7":
             id_usuario = input("ID del usuario a eliminar: ")
             eliminar_usuario(id_usuario)
@@ -218,7 +255,7 @@ def menu_carrito():
         elif opcion == "3":
             actualizar_cantidad_carrito()
         elif opcion == "4":
-            eliminar_producto_carrio()
+            eliminar_producto_carrito()
         elif opcion == "5":
             vaciar_carrito_usuario()
         elif opcion == "6":
@@ -258,7 +295,7 @@ if __name__ == "__main__":
 
                 
                 
-# ------------------ QUEDA PENDIENTE HACER LAS PREUBAS A LOS MENUS ROLES Y LAS DEMAS -----------------------------------
+# ------------------ SE HICIERO PRUEBAS A LOS USUARIOS QUEDA PENDIENTE A LOS DEMAS MODULOS-----------------------------------
 
 
 
@@ -266,135 +303,3 @@ if __name__ == "__main__":
 
 
 
-
-# def menu():
-#     while True:
-#         print("")
-#         print("")
-#         print(" --MENU DE USUARIOS-- ")
-#         print("1. Registar usuario")
-#         print("2. Mostrar todos los usuarios")
-#         print("3. Buscar usuario por correo")
-#         print("4. Buscar usuario por telefono")
-#         print("5. Login de usuario")
-#         print("6. Actualizar usuario")
-#         print("7. Eliminar usuario")
-#         print("")
-#         print("")
-#         print("-- MENU DE PRODUCTOS --")
-#         print("8. Registrar productos: ")
-#         print("9. Mostrar los productos: ")
-#         print("10. Buscar productos por nombre: ")
-#         print("11. Actualizar producto: ")
-#         print("12. Eliminar producto: ")
-#         print("")
-#         print("")
-#         print("-- MENU DEL CARRITO --")
-#         print("13. Agregar producto al carrito")
-#         print("14. Mostrar carrito del usuario")
-#         print("15. Actualizar carrito")
-#         print("16. Eliminar producto del carrito ")
-#         print("17. Vaciar Carrito")
-#         print("18. Confirmar compra")
-
-#         print("50. Salir")
-
-#         opcion = input("Elige una opcion: ")
-
-#         if opcion == "1":
-#             registrar_usuario()
-        
-#         elif opcion == "2":
-#             obtener_usuario()
-
-#         elif opcion == "3":
-#             correo = input("Correo a buscar ")
-#             usuario = obtener_usuario_por_correo(correo)
-#             if usuario: 
-#                 print("Usuario encontrado:", usuario)
-#             else: 
-#                 print("Usuario no encntrado. ")
-
-
-#         elif opcion == "4":
-#             telefono = input("Numero de telefono a buscar ")
-#             usuario = obtener_usuario_por_telefono(telefono)
-#             if usuario: 
-#                 print("Usuario encontrado:", usuario)
-#             else: 
-#                 print("Usuario no encntrado. ")
-
-#         elif opcion == "5":
-#             correo = input("Correo: ")
-#             contraseña = input("Contraseña: ")
-#             login_usuario(correo, contraseña)
-        
-#         elif opcion == "6":
-#             id_usuario = input("Digie el ID del usuario que desea utilizar: ")
-#             nombre = input("Nuevo nombre: ")
-#             apellido = input("Nuevo apellido: ")
-#             correo = input("Nuevo correo: ")
-#             telefono = input("Nuevo telefono: ")
-#             direccion = input("Nueva direccion: ")
-#             actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, direccion)
-
-#         elif opcion == "7":
-#             id_usuario = input("Id del usuario a eliminar: ")
-#             eliminar_usuario(id_usuario)
-
-#         elif opcion == "8":
-#             registrar_producto()
-
-
-#         elif opcion == "9":
-#             obtener_productos()
-
-        
-#         elif opcion == "10":
-#             nombre = input("Nombre del producto a buscar: ")
-#             buscar_producto_por_nombre(nombre)
-
-#         elif opcion == "11":
-#             print("--ACTUALIZAR PRODUCTO--")
-#             id_producto = input("Digite el ID del producto a actulizar: ")
-#             titulo_producto = input("Digite el nuevo titulo: ")
-#             precio_producto = input("Digite el nuevo precio: ")
-#             imagen_producto = input("Digite el nuevo nombre o ruta de la imagen: ")
-#             descripcion_producto = input("Digite la nueva descripcion: ")
-#             stock_producto = input("Digite el nuevo stock del producto: ")
-#             id_usuario = input("Digite el nuevo ID del usuario que publica: ")
-#             actualizar_productos(id_producto, titulo_producto, precio_producto, imagen_producto, descripcion_producto, stock_producto, id_usuario)
-        
-#         elif opcion == "12":
-#             print("ELIMINAR PRODUCTO")
-#             id_producto = input("Digite el ID del producto a eliminar: ")
-#             eliminar_productos(id_producto)
-
-#         elif opcion == "13":
-#             agregar_al_carrito()
-
-#         elif opcion == "14":
-#             mostrar_carrito_por_usuario()
-            
-#         elif opcion == "15":
-#             actualizar_cantidad_carrito()
-            
-#         elif opcion == "16":
-#             eliminar_producto_carrio()
-            
-#         elif opcion == "17":
-#             vaciar_carrito_usuario()
-        
-#         elif opcion == "18":
-#             confirmar_compra()
-
-#         elif opcion == "50":
-#             print("Saliendo del sistema ")
-#             break
-
-#         else:
-#             print("Opcion no valida. Intente de nuevo")
-
-# menu()
-# if __name__ == "__main__":
-#     menu

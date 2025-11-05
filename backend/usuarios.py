@@ -3,17 +3,8 @@ import hashlib
 
 #-- REGISTRAR USURIO --
 
-def registrar_usuario():
+def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol):
     print("Registrar Usuario")
-
-    nombre = input("Digite su nombre: ")
-    apellido = input("Digite su apellido: ")
-    correo = input("Digite su correo: ")
-    telefono = input("Digite su telefono: ")
-    contraseña = input("Digite su contraseña: ")
-    direccion = input("Digite su direccion: ")
-    id_rol = input("Digite su codigo del rol: ")
-
     conexion = conectar()
     if not conexion:
         return
@@ -121,18 +112,20 @@ def login_usuario(correo, contraseña):
         conexion.close()
         
 #-- ACTUALIZAR DATOS DE UN USUARIO --
-def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, direccion):
+def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion ):
     conexion = conectar()
     if not conexion: 
+        print("Error a conectar a la base de datos.")
         return
     try:
         cursor = conexion.cursor()
+        cifrar_contraseña = hashlib.sha256(contraseña.encode()).hexdigest()
         consulta = """
         UPDATE usuario SET nombre_usuario=%s, apellido_usuario=%s,
-        correo_usuario=%s, telefono_usuario=%s, direccion_usuario=%s
+        correo_usuario=%s, contraseña_usuario=%s, telefono_usuario=%s, direccion_usuario=%s
         WHERE id_usuario=%s
         """
-        datos = (nombre, apellido, correo, telefono, direccion, id_usuario)
+        datos = (nombre, apellido, correo, cifrar_contraseña, telefono,  direccion,  id_usuario)
         cursor.execute(consulta, datos)
         conexion.commit()
         print("Usuario actualizado correctamente")
@@ -144,16 +137,55 @@ def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, direccion
 #-- ELIMINAR USUARIO --
 
 def eliminar_usuario(id_usuario):
+    
+    print("-- ELIMINAR USUARIO --")
+    
+    # Validacion de que no este vacio
+    if not id_usuario.strip():
+        print("Error El Id del usuario no puede estar vacio ")
+        return 
+    
+    # Validacion de que no este vacio
+    if not id_usuario.isdigit():
+        print("Error El Id debe ser un numero valido")
+        
     conexion = conectar()
+    
     if not conexion:
+        print("Error al conectar a la base de datos")
         return
     try:
         cursor = conexion.cursor()
+        
+        # Verificar si el usurio existe o no 
+        
+        cursor.execute("SELECT * FROM usuario WHERE id_usuario = %s" , (id_usuario,))
+        usuario = cursor.fetchone()
+        
+        if not usuario:
+            print("No existe un usuario con ese ID")
+            return
+        
+        # Confirmacion de eliminacion
+        
+        print(f"¿Estas seguro de eliminar al usuario {usuario[1]} )")
+        confirmacion = input("Para confirmar la eliminacion escribe exactamente `ELIMINAR` todo en mayusculas:  ").strip() 
+        
+        if confirmacion.upper() != "ELIMINAR":
+            print("Eliminacion cancelada")
+            
+            
+        cursor.execute("SELECT COUNT(*) FROM producto WHERE id_usuario = %s", (id_usuario,))
+        productos = cursor.fetchone()[0]
+        
+        if productos > 0: 
+            print("No puedes eliminar este usuario porque tiene productos registrados. ")
+            return
         consulta = "DELETE FROM usuario WHERE id_usuario = %s"
         cursor.execute(consulta, (id_usuario,))
         conexion.commit()
-        print("Usuario eliminado correctamente")
+        print("Usuario eliminado correctamente")  
     except Exception as e:
-        print("Error al elminar el usuario:", e)
+        print("Error al eliminar el usuario:", e)
     finally:
         conexion.close()

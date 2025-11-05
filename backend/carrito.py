@@ -132,7 +132,7 @@ def actualizar_cantidad_carrito():
         conexion.close()
 
 # -- ELIMINAR PRODUCTOS DEL CARRITO --
-def eliminar_producto_carrio():
+def eliminar_producto_carrito():
     print("--ELIMINAR PRODUCTO DEL CARRITO --")
     id_carrito = input("Digite el ID del carrito a eliminar: ")
     conexion = conectar()
@@ -155,9 +155,8 @@ def eliminar_producto_carrio():
 
 
 # -- VACIAR CARRITO  --
-def vaciar_carrito_usuario():
+def vaciar_carrito_usuario(id_usuario):
     print("-- VACIAR CARRITO --")
-    id_usuario = input("Ingrese el ID del usuario ")
     conexion = conectar()
     if not conexion:
         print("Error al conectar con la base de datos ")
