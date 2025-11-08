@@ -187,6 +187,8 @@ def menu_usuario():
                 print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
             else: 
                 actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
+                
+        # Opcion 7 Eliminar Usuario
         elif opcion == "7":
             id_usuario = input("ID del usuario a eliminar: ")
             eliminar_usuario(id_usuario)
@@ -270,20 +272,18 @@ def menu_carrito():
 def menu_principal():
     while True:
         print("\n --- MENU  PRINCIPAL ---")
-        print("1. Usuarios")
-        print("2. Productos")
-        print("3. Carrito")
-        print("0. Salir")
+        print("1. Login")
+        print("2. Salir")
 
         opcion = input("Elige una opcion: ")
         
         if opcion == "1":
-            menu_usuario()
+            correo = input("Correo :")
+            contraseña = input("Contraseña :")
+            usuario = login_usuario(correo, contraseña)
+            if usuario: 
+                mostrar_menu_por_rol(usuario)
         elif opcion == "2":
-            menu_productos()
-        elif opcion == "3":
-            menu_carrito()
-        elif opcion == "0":
             break
         else: 
             print("Opcion no valida. ")
