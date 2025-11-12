@@ -137,20 +137,14 @@ def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contrase�
 #-- ELIMINAR USUARIO --
 
 def eliminar_usuario(id_usuario):
-    
-    print("-- ELIMINAR USUARIO --")
-    
     # Validacion de que no este vacio
     if not id_usuario.strip():
         print("Error El Id del usuario no puede estar vacio ")
         return 
-    
-    # Validacion de que no este vacio
+    # Validacion de que sea un numero
     if not id_usuario.isdigit():
         print("Error El Id debe ser un numero valido")
-        
     conexion = conectar()
-    
     if not conexion:
         print("Error al conectar a la base de datos")
         return
@@ -158,26 +152,23 @@ def eliminar_usuario(id_usuario):
         cursor = conexion.cursor()
         
         # Verificar si el usurio existe o no 
-        
         cursor.execute("SELECT * FROM usuario WHERE id_usuario = %s" , (id_usuario,))
         usuario = cursor.fetchone()
-        
         if not usuario:
             print("No existe un usuario con ese ID")
             return
+    
         
-        # Confirmacion de eliminacion
-        
-        print(f"¿Estas seguro de eliminar al usuario {usuario[1]} )")
+        print(f"¿Estas seguro de eliminar al usuario {usuario[1]} ")
         confirmacion = input("Para confirmar la eliminacion escribe exactamente `ELIMINAR` todo en mayusculas:  ").strip() 
         
+        # Confirmacion de eliminacion
         if confirmacion.upper() != "ELIMINAR":
-            print("Eliminacion cancelada")
-            
-            
+            print("Eliminacion cancelada")  
         cursor.execute("SELECT COUNT(*) FROM producto WHERE id_usuario = %s", (id_usuario,))
         productos = cursor.fetchone()[0]
         
+        # Validacion que menciona que no se puede eliminar usuarios con productos apregados
         if productos > 0: 
             print("No puedes eliminar este usuario porque tiene productos registrados. ")
             return

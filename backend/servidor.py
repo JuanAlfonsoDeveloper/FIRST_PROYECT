@@ -34,20 +34,20 @@ def mostrar_menu_por_rol(usuario):
         print("\n --- MENU PRINCIPAL ADMINISTRADOR ---")
         if id_rol == 1: #Administrador
             print("1. Registrar Usuario: ")
-            print("2. Mostrar todos los productos: ")
+            print("2. Mostrar todos los usuarios: ")
             print("3. Buscar usuario por correo: ")
             print("4. Buscar usuario por telefono: ")
             print("5. Actualizar usuario: ")
             print("6. Eliminar usuario: ")
             print("7. Registrar producto: ")
-            print("8. Mostrar prodcutos: ")
-            print("9. Buscar prodcutos: ")
+            print("8. Mostrar productos: ")
+            print("9. Buscar productos: ")
             print("10. Actualizar productos: ")
             print("11. Eliminar productos: ")
             print("12. Cerrar sesion: ")
             opcion = input("Seleccione una opcion: ")
             
-            #  Opcion 1. Registrar Usuario
+        #  Opcion 1. Registrar Usuario
         if opcion == "1":
             print("--- REGISTRAR USUARIOS ---")
             nombre = input("Digite su nombre: ").strip()
@@ -64,16 +64,61 @@ def mostrar_menu_por_rol(usuario):
             else: 
                 registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol)
         
+        # Opcion 2. Mostrar todos los usuarios:
+        elif opcion == "2":
+            print("--- MOSTRAR USUARIOS ---")
+            obtener_usuario()
+        
+        # Opcion 3. Buscar usuarios por correo:
+        elif opcion == "3":
+            print("--- BUSCAR USUARIO POR CORREO ---")
+            correo = input("Correo a buscar: ")
+            usuario = obtener_usuario_por_correo(correo)
+            print("Resultado", usuario if usuario else "Usuario no encontrado")
             
+        # Opcion 4. Buscar usuarios por telefono:
+        elif opcion == "4":
+            print("--- BUSCAR USUARIO POR TELEFONO ---")
+            telefono = input("Telefono a buscar: ")
+            usuario = obtener_usuario_por_telefono(telefono)
+            print("Resultado", usuario if usuario else "Usuario no encontrado")
+            
+        # Opcion 5. Actualizar usuario: 
+        elif opcion == "5":
+            print("--- ACTUALIZAR USUARIO ---")
+            id_usuario = input("ID del usuario a actualizar: ").strip()
+            nombre = input("Nuevo nombre: ").strip()
+            apellido = input("Nuevo apellido: ").strip()
+            correo = input("Nuevo correo: ").strip()
+            telefono = input("Nuevo telefono: ").strip()
+            contraseña = input("Nueva contraseña ").strip()
+            direccion = input("Nueva direccion: ").strip()  
+            if not (id_usuario and nombre and apellido and correo and telefono and contraseña and  direccion  ):
+                print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+            else: 
+                actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
+        
+        # Opcion 6. Eliminar usuario:
+        elif opcion == "6":
+            id_usuario = input("ID del usuario a eliminar: ")
+            eliminar_usuario(id_usuario)
+            
+        # Opcion 7. Registrar producto:
+        
+        
+        # Opcion 12. Cerrar sesion:
+        elif opcion == "12":
+            print("Cerrando sesion ...")
+            break
+            
+        
             # if opcion == "1":
             #     menu_usuario()
             # elif opcion == "2":
             #     menu_productos()
             # elif opcion == "3":
             #     print("Aqui se ven los reportes...")
-            # elif opcion == "4":
-            #     print("Cerrando sesion ...")
-            #     break
+            # 
             # else: 
             #     print("Opcion no valida")
         
@@ -140,72 +185,7 @@ def mostrar_menu_por_rol(usuario):
             else: 
                 print("Opcion no valida")
 
-# -------------------------- MENU USUARIOS --------------------------
 
-# def menu_usuario():
-#     while True:
-#         print("\n --- MENU DE USUARIOS ---")
-#         print("1. Registrar usuario")
-#         print("2. Mostrar todos los usuarios")
-#         print("3. Buscar usuario por correo")
-#         print("4. Buscar usuario por telefono")
-#         print("5. Login de usuario")
-#         print("6. Actulizar usuario")
-#         print("7. Eliminar usuario")
-#         print("0. Volver al menu principal")
-#         opcion = input("Elige una opcion: ")
-        
-
-            
-#          #  Opcion 2. Mostrar todos los usuarios
-#         elif opcion == "2":
-#             obtener_usuario()
-            
-#          #  Opcion 3. Busqueda por correo
-#         elif opcion == "3":
-#             correo = input("Correo a buscar: ")
-#             usuario = obtener_usuario_por_correo(correo)
-#             print("Resultado", usuario if usuario else "Usuario no encontrado")
-            
-#         #  Opcion 4. Busqueda por telefono
-#         elif opcion == "4":
-#             telefono = input("Telefono a buscar: ")
-#             usuario = obtener_usuario_por_telefono(telefono)
-#             print("Resultado", usuario if usuario else "Usuario no encontrado")
-        
-#         #  Opcion 5. Login
-#         elif opcion == "5":
-#             correo = input("Correo :")
-#             contraseña = input("Contraseña :")
-#             usuario = login_usuario(correo, contraseña)
-#             if usuario: 
-#                 mostrar_menu_por_rol(usuario)
-                
-#         #  Opcion 6. Actualizar
-#         elif opcion == "6":
-#             id_usuario = input("ID del usuario a actualizar: ").strip()
-#             nombre = input("Nuevo nombre: ").strip()
-#             apellido = input("Nuevo apellido: ").strip()
-#             correo = input("Nuevo correo: ").strip()
-#             telefono = input("Nuevo telefono: ").strip()
-#             contraseña = input("Nueva contraseña ").strip()
-#             direccion = input("Nueva direccion: ").strip()
-            
-            
-            
-#             if not (id_usuario and nombre and apellido and correo and telefono and contraseña and  direccion  ):
-#                 print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
-#             else: 
-#                 actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
-                
-#         # Opcion 7 Eliminar Usuario
-#         elif opcion == "7":
-#             id_usuario = input("ID del usuario a eliminar: ")
-#             eliminar_usuario(id_usuario)
-#         elif opcion == "0":
-#             break
-#         else:
-#             print("Opcion no valida. ")
             
 # -------------------------- MENU PRODUCTOS --------------------------
 
@@ -282,14 +262,14 @@ def menu_carrito():
 def menu_principal():
     while True:
         print("\n --- MENU  PRINCIPAL ---")
-        print("1. Login")
-        print("2. Salir")
+        print("1. Login: ")
+        print("2. Salir: ")
 
         opcion = input("Elige una opcion: ")
         
         if opcion == "1":
-            correo = input("Correo :")
-            contraseña = input("Contraseña :")
+            correo = input("Correo: ")
+            contraseña = input("Contraseña: ")
             usuario = login_usuario(correo, contraseña)
             if usuario: 
                 mostrar_menu_por_rol(usuario)
@@ -305,7 +285,7 @@ if __name__ == "__main__":
 
                 
                 
-# ------------------ Quedo lista la primera funcion de la parte del menu del administrador faltan las demas funciones del administrador -----------------------------------
+# ------------------ Quedo lista las funciones de usuarios para el administrador faltan las demas -----------------------------------
 
 
 
