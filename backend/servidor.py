@@ -31,25 +31,37 @@ from carrito import(
 def mostrar_menu_por_rol(usuario):
     id_usuario, nombre_usuario, id_rol = usuario
     while True:
-        print("\n --- MENU PRINCIPAL ---")
+        print("\n --- MENU PRINCIPAL ADMINISTRADOR ---")
         if id_rol == 1: #Administrador
+            # Registrar Usuario 
+            # Mostrar todos los productos
+            # Buscar usuario por correo 
+            # Buscar usuario por telefono
+            # Actualizar usuario 
+            # Eliminar usuario 
+            # Registrar producto
+            # Mostrar prodcutos
+            # Buscar prodcutos
+            # Actualizar productos
+            # Eliminar productos
+            
             print("1. Gestionar Usuarios: ")
             print("2. Gestionar productos: ")
             print("3. Ver reportes: ")
             print("4. Cerrar sesion: ")
             opcion = input("Seleccione una opcion: ")
             
-            if opcion == "1":
-                menu_usuario()
-            elif opcion == "2":
-                menu_productos()
-            elif opcion == "3":
-                print("Aqui se ven los reportes...")
-            elif opcion == "4":
-                print("Cerrando sesion ...")
-                break
-            else: 
-                print("Opcion no valida")
+            # if opcion == "1":
+            #     menu_usuario()
+            # elif opcion == "2":
+            #     menu_productos()
+            # elif opcion == "3":
+            #     print("Aqui se ven los reportes...")
+            # elif opcion == "4":
+            #     print("Cerrando sesion ...")
+            #     break
+            # else: 
+            #     print("Opcion no valida")
         
         elif id_rol == 2: #Vendedor
             print("1. Agregar producto: ")
