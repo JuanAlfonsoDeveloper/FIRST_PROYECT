@@ -68,7 +68,7 @@ def buscar_producto_por_nombre(nombre_producto):
         productos = cursor.fetchall()
 
         if productos:
-            print("Productos eontrados con  '{nombre_producto}':")
+            print(f"Productos encontrados con  {nombre_producto}:")
             for producto in productos: 
                 print(producto)
         else:

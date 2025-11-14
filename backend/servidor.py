@@ -106,6 +106,31 @@ def mostrar_menu_por_rol(usuario):
         # Opcion 7. Registrar producto:
         if opcion == "7":
             registrar_producto()
+            
+        # Opcion 8. Mostrar productos:
+        elif opcion == "8":
+            obtener_productos()
+            
+        # Opcion 9. Buscar productos:
+        elif opcion == "9":
+            nombre = input("Nombre del producto: ")
+            buscar_producto_por_nombre(nombre)
+        
+        # Opcion 10. Actualizar productos:
+        elif opcion == "10":
+            id_producto = input("ID del producto a actualizar: ")
+            titulo = input("Nuevo titulo: ")
+            precio = input("Nuevo precio: ")
+            imagen = input("Nueva ruta de la imagen / URL: ")
+            descripcion = input("Nueva descripcion: ")
+            stock = input("Nuevo stock: ")
+            id_usuario = input("ID del usuario que publica: ")
+            actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+            
+        # Opcion 11. Eliminar productos:
+        elif opcion == "11":
+            id_producto = input("ID del producto a eliminar: ")
+            eliminar_productos(id_producto)
         
         # Opcion 12. Cerrar sesion:
         elif opcion == "12":
@@ -204,22 +229,12 @@ def mostrar_menu_por_rol(usuario):
         
 #         
 #         elif opcion == "2":
-#             obtener_productos()
-#         elif opcion == "3":
-#             nombre = input("Nombre del producto: ")
-#             buscar_producto_por_nombre(nombre)
+#             
+#         
 #         elif opcion == "4":
-#             id_producto = input("ID del producto a actualizar: ")
-#             titulo = input("Nuevo titulo: ")
-#             precio = input("Nuevo precio: ")
-#             imagen = input("Nueva ruta de la imagen / URL: ")
-#             descripcion = input("Nueva descripcion: ")
-#             stock = input("Nuevo stock: ")
-#             id_usuario = input("ID del usuario que publica: ")
-#             actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+#             
 #         elif opcion == "5":
-#             id_producto = input("ID del producto a eliminar: ")
-#             eliminar_productos(id_producto)
+#            
 #         elif opcion == "0":
 #             break
 #         else:
@@ -285,7 +300,7 @@ if __name__ == "__main__":
 
                 
                 
-# ------------------ Se adelanto hasta la funcio 8 del menu de adminsitrador (la funcion 8 esta de ceros) -----------------------------------
+# ------------------ Se adelentaron las funciones de los administradores faltan los vendedores y usuario -----------------------------------
 
 
 
