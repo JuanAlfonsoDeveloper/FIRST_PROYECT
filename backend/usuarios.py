@@ -11,6 +11,20 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
     
     try:
         cursor = conexion.cursor()
+        
+        # --- VALIDACION DE DUPLICADOS ---
+        cursor.execute(
+            "SELECT id_usuario FROM usuario WHERE correo_usuario = %s",(correo,))
+        if cursor.fetchone():
+            print("X Error: El correo ya esta registrado. ")
+            return
+        
+        cursor.execute(
+            "SELECT id_usuario FROM usuario WHERE telefono_usuario = %s",(telefono,))
+        if cursor.fetchone():
+            print("X Error: El telefono ya esta registrado. ")
+            return
+        
         consulta = """
         INSERT INTO usuario ( 
             nombre_usuario, apellido_usuario, correo_usuario, 

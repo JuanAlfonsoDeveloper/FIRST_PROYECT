@@ -194,12 +194,12 @@ def mostrar_menu_por_rol(usuario):
             
                 
         elif id_rol == 3: #Cliente
-            print("1. Ver productos : ")
+            print("1. Ver productos: ")
             print("2. Agregar al carrito: ")
-            print("3. Ver carrito")
-            print("4. Eliminar producto carrito")
-            print("5. Vaciar carrito")
-            print("6. Comfirmar compra")
+            print("3. Ver carrito: ")
+            print("4. Eliminar producto carrito: ")
+            print("5. Vaciar carrito: ")
+            print("6. Comfirmar compra: ")
             print("7. Cerrar sesion: ")
             opcion = input("Seleccione una opcion: ")
             
@@ -260,10 +260,10 @@ def mostrar_menu_por_rol(usuario):
 def menu_carrito():
     while True:
         print("\n --- MENU DE CARRITO ---")
-        print("1. Agregar producto al carrito")
-        print("2. Mostrar productos del carrito")
-        print("3. Actualizar cantidad del carrito")
-        print("4. Eliminar producto del carrito")
+        print("1. Agregar producto al carrito: ")
+        print("2. Mostrar productos del carrito: ")
+        print("3. Actualizar cantidad del carrito: ")
+        print("4. Eliminar producto del carrito: ")
         print("5. Vaciar carrito")
         print("6. Confirmar compra")
         print("0. Volver al menu principal")
@@ -313,9 +313,9 @@ if __name__ == "__main__":
     
 
 
+# Se debe mirar muy bien las funciones del usuario            
                 
-                
-# ------------------ Se empezo pruebas de administrador, faltan todas menos registrar usuario -----------------------------------
+# ------------------ Se arreglo lo de registrar usuarios nuevos para que no hayan duplicados por telefono o correo y lo siguiente sera crear una nueva funcion para agregar modificar el id a los usuarios -----------------------------------
 
 
 
