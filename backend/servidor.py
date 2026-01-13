@@ -56,13 +56,14 @@ def mostrar_menu_por_rol(usuario):
                 telefono = input("Digite su telefono: ").strip()
                 contraseña = input("Digite su contraseña: ").strip()
                 direccion = input("Digite su direccion: ").strip()
-                id_rol = input("Digite su codigo del rol: ").strip()
+                id_rol_nuevo = input("Digite su codigo del rol: ").strip()
                 
                 
-                if not (nombre and apellido and correo and telefono and contraseña and direccion and id_rol):
+                if not (nombre and apellido and correo and telefono and contraseña and direccion and id_rol_nuevo):
                     print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
                 else: 
-                    registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol)
+                    registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo)
+                    
             
             # Opcion 2. Mostrar todos los usuarios:
             elif opcion == "2":
@@ -314,7 +315,7 @@ if __name__ == "__main__":
 
                 
                 
-# ------------------ Se adelentaron las funciones de los vendedores faltan usuarioa -----------------------------------
+# ------------------ Se empezo pruebas de administrador, faltan todas menos registrar usuario -----------------------------------
 
 
 

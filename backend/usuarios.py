@@ -3,7 +3,7 @@ import hashlib
 
 #-- REGISTRAR USURIO --
 
-def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol):
+def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo):
     print("Registrar Usuario")
     conexion = conectar()
     if not conexion:
@@ -19,7 +19,7 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
         """
 
         contraseña_cifrada = cifrar_contraseña(contraseña)
-        datos = (nombre, apellido, correo, telefono, contraseña_cifrada, direccion, id_rol)
+        datos = (nombre, apellido, correo, telefono, contraseña_cifrada, direccion, id_rol_nuevo)
         cursor.execute(consulta, datos)
         conexion.commit()
         print("Usuario registrado correctamente")
