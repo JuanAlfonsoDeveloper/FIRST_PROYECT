@@ -315,7 +315,7 @@ if __name__ == "__main__":
 
 # Se debe mirar muy bien las funciones del usuario            
                 
-# ------------------ Se arreglo lo de registrar usuarios nuevos para que no hayan duplicados por telefono o correo y lo siguiente sera crear una nueva funcion para agregar modificar el id a los usuarios -----------------------------------
+# ------------------  SE crEO una nueva funcion para agregar modificar el id a los usuarios FALTA AGRAGARLA AL SERVIDOR -----------------------------------
 
 
 

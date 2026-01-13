@@ -1,6 +1,59 @@
 from db import conectar
 import hashlib
 
+
+# -- CAMBIAR ROL DE USUARIO (SOLO ADMIN) -- 
+def cambiar_rol_usuario(id_usuario, nuevo_rol):
+    conexion = conectar()
+    if not conexion: 
+        print(" X Error al conectar a la base de datos ")
+        return
+    
+    try: 
+        cursor = conexion.cursor()
+        
+        # Validacion ID usuario 
+        if not id_usuario.isdigit():
+            print("X Error El ID del usuario debe ser numero")
+            return
+        
+        # Validar rol 
+        if nuevo_rol not in ("1","2","3"):
+            print("X Error rol invalido")
+            return
+        
+        # Verificar si el usuario existe
+        cursor.execute(
+            "SELECT nombre_usuario, id_rol FROM usuario WHERE id_usuario = %s", (id_usuario,)
+        )
+        usuario = cursor.fetchone()
+        
+        if not usuario: 
+            print("X Error el usuario no existe")
+            return
+        nombre, rol_actual = usuario 
+        
+        # Confirmacion
+        print(f"Usuario: {nombre}")
+        print(f"Rol Actual: {rol_actual}")
+        confirmacion = input("Escriba CAMBIAR para confirmar el cambio del rol: ").strip()
+        
+        if confirmacion != "CAMBIAR":
+            print("Cambio de rol cancelado")
+            return
+        
+        # Actualizar rol 
+        cursor.execute("UPDATE usuario SET id_rol = %s WHERE id_usuario = %s", (nuevo_rol, id_usuario))
+        conexion.commit()
+        
+        print("Rol Actualizado correctamente")
+        
+    except Exception as e:
+        print("Error al cambiar rol:",e)
+    finally:
+        conexion.close()
+    
+        
 #-- REGISTRAR USURIO --
 
 def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo):
