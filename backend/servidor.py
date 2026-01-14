@@ -5,7 +5,8 @@ from usuarios import (
     obtener_usuario_por_telefono,
     login_usuario,
     actualizar_usuario,
-    eliminar_usuario
+    eliminar_usuario,
+    cambiar_rol_usuario
 )
 
 from productos import(
@@ -39,12 +40,13 @@ def mostrar_menu_por_rol(usuario):
             print("4. Buscar usuario por telefono: ")
             print("5. Actualizar usuario: ")
             print("6. Eliminar usuario: ")
-            print("7. Registrar producto: ")
-            print("8. Mostrar productos: ")
-            print("9. Buscar productos: ")
-            print("10. Actualizar productos: ")
-            print("11. Eliminar productos: ")
-            print("12. Cerrar sesion: ")
+            print("7. Cambiar rol de usuario")
+            print("8. Registrar producto: ")
+            print("9. Mostrar productos: ")
+            print("10. Buscar productos: ")
+            print("11. Actualizar productos: ")
+            print("12. Eliminar productos: ")
+            print("13. Cerrar sesion: ")
             opcion = input("Seleccione una opcion: ")
             
             #  Opcion 1. Registrar Usuario
@@ -104,21 +106,42 @@ def mostrar_menu_por_rol(usuario):
                 id_usuario = input("ID del usuario a eliminar: ")
                 eliminar_usuario(id_usuario)
                 
-            # Opcion 7. Registrar producto:
+            # Opcion 7. Cambiar rol a usuario
             elif opcion == "7":
+                print("-- CAMBIAR ROL DE USUARIO --")
+                id_usuario_cambiar = input("ID del usuario: ").strip()
+                nuevo_rol = input("Nuevo Rol (1 - Admin, 2 - Vendedor, 3 - Cliente ): ").strip()
+                
+                # Validacion para que sea numerico
+                
+                if not id_usuario_cambiar.isdigit():
+                    print("Error: el Id debe ser numerico")
+                    continue
+                
+                # Validacion que el rol exista 
+                
+                if nuevo_rol not in ("1","2","3"):
+                    print("Error Rol invalido")
+                    continue 
+                
+                cambiar_rol_usuario(id_usuario_cambiar , nuevo_rol)
+            
+                
+            # Opcion 8. Registrar producto:
+            elif opcion == "8":
                 registrar_producto()
                 
-            # Opcion 8. Mostrar productos:
-            elif opcion == "8":
+            # Opcion 9. Mostrar productos:
+            elif opcion == "9":
                 obtener_productos()
                 
-            # Opcion 9. Buscar productos:
-            elif opcion == "9":
+            # Opcion 10. Buscar productos:
+            elif opcion == "10":
                 nombre = input("Nombre del producto: ")
                 buscar_producto_por_nombre(nombre)
             
-            # Opcion 10. Actualizar productos:
-            elif opcion == "10":
+            # Opcion 11. Actualizar productos:
+            elif opcion == "11":
                 id_producto = input("ID del producto a actualizar: ")
                 titulo = input("Nuevo titulo: ")
                 precio = input("Nuevo precio: ")
@@ -128,13 +151,13 @@ def mostrar_menu_por_rol(usuario):
                 id_usuario = input("ID del usuario que publica: ")
                 actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
                 
-            # Opcion 11. Eliminar productos:
-            elif opcion == "11":
+            # Opcion 12. Eliminar productos:
+            elif opcion == "12":
                 id_producto = input("ID del producto a eliminar: ")
                 eliminar_productos(id_producto)
             
-            # Opcion 12. Cerrar sesion:
-            elif opcion == "12":
+            # Opcion 13. Cerrar sesion:
+            elif opcion == "13":
                 print("Cerrando sesion ...")
                 break
             # VALIADACION POR PONER DIGITOS QUE NO SON 
@@ -315,7 +338,7 @@ if __name__ == "__main__":
 
 # Se debe mirar muy bien las funciones del usuario            
                 
-# ------------------  SE crEO una nueva funcion para agregar modificar el id a los usuarios FALTA AGRAGARLA AL SERVIDOR -----------------------------------
+# ------------------  YA QUEDO LA FUNCION DE ACTUALIZAR ROL FALTA, SEGUIR CON MAS PRUEBAS -----------------------------------
 
 
 

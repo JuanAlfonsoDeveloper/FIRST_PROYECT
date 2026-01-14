@@ -3,7 +3,7 @@ import hashlib
 
 
 # -- CAMBIAR ROL DE USUARIO (SOLO ADMIN) -- 
-def cambiar_rol_usuario(id_usuario, nuevo_rol):
+def cambiar_rol_usuario(id_usuario_cambiar, nuevo_rol):
     conexion = conectar()
     if not conexion: 
         print(" X Error al conectar a la base de datos ")
@@ -13,7 +13,7 @@ def cambiar_rol_usuario(id_usuario, nuevo_rol):
         cursor = conexion.cursor()
         
         # Validacion ID usuario 
-        if not id_usuario.isdigit():
+        if not id_usuario_cambiar.isdigit():
             print("X Error El ID del usuario debe ser numero")
             return
         
@@ -24,7 +24,7 @@ def cambiar_rol_usuario(id_usuario, nuevo_rol):
         
         # Verificar si el usuario existe
         cursor.execute(
-            "SELECT nombre_usuario, id_rol FROM usuario WHERE id_usuario = %s", (id_usuario,)
+            "SELECT nombre_usuario, id_rol FROM usuario WHERE id_usuario = %s", (id_usuario_cambiar,)
         )
         usuario = cursor.fetchone()
         
@@ -43,7 +43,7 @@ def cambiar_rol_usuario(id_usuario, nuevo_rol):
             return
         
         # Actualizar rol 
-        cursor.execute("UPDATE usuario SET id_rol = %s WHERE id_usuario = %s", (nuevo_rol, id_usuario))
+        cursor.execute("UPDATE usuario SET id_rol = %s WHERE id_usuario = %s", (nuevo_rol, id_usuario_cambiar))
         conexion.commit()
         
         print("Rol Actualizado correctamente")
