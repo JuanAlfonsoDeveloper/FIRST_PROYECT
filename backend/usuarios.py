@@ -65,6 +65,10 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
     try:
         cursor = conexion.cursor()
         
+        if not telefono.isdigit():
+            print("X Error El telefono del usuario debe ser numerico")
+            return
+        
         # --- VALIDACION DE DUPLICADOS ---
         cursor.execute(
             "SELECT id_usuario FROM usuario WHERE correo_usuario = %s",(correo,))
@@ -140,6 +144,9 @@ def obtener_usuario_por_telefono(telefono):
     if not conexion:
         return
     try:
+        if not telefono.isdigit():
+            print("X Error El telefono del usuario debe ser numerico")
+            return
         cursor = conexion.cursor()
         consulta = "SELECT * FROM usuario WHERE telefono_usuario = %s"
         cursor.execute(consulta, (telefono))
@@ -185,6 +192,11 @@ def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contrase�
         print("Error a conectar a la base de datos.")
         return
     try:
+        
+        if not telefono.isdigit():
+            print("X Error El telefono del usuario debe ser numerico")
+            return
+        
         cursor = conexion.cursor()
         cifrar_contraseña = hashlib.sha256(contraseña.encode()).hexdigest()
         consulta = """
@@ -210,7 +222,8 @@ def eliminar_usuario(id_usuario):
         return 
     # Validacion de que sea un numero
     if not id_usuario.isdigit():
-        print("Error El Id debe ser un numero valido")
+        print("Error El Id debe ser un valor numerico")
+        return
     conexion = conectar()
     if not conexion:
         print("Error al conectar a la base de datos")
@@ -231,7 +244,8 @@ def eliminar_usuario(id_usuario):
         
         # Confirmacion de eliminacion
         if confirmacion.upper() != "ELIMINAR":
-            print("Eliminacion cancelada")  
+            print("Eliminacion cancelada") 
+            return
         cursor.execute("SELECT COUNT(*) FROM producto WHERE id_usuario = %s", (id_usuario,))
         productos = cursor.fetchone()[0]
         

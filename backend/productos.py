@@ -1,15 +1,21 @@
 from db import conectar
 
+# -- VALIDAR NUMEROS DECIMALES()
+def validar_numerodecimal(precio_input):
+    try:
+        numero = float(precio_input)
+        return numero
+    except ValueError:
+        return None
+     
+
 # -- REGISTRAR PRODUCTOS --
-def registrar_producto():
+def registrar_producto(titulo, precio, imagen, descripcion, stock, id_usuario):
+
     print("REGISTRAR PRODUCTO")
 
-    titulo = input("Titulo del producto: ")
-    precio = input("Precio del producto: ")
-    imagen = input("Ruta o nombre de la imagen ")
-    descripcion = input("Descripcion del producto: ")
-    stock = input("Cantidad en el stock: ")
-    id_usuario = input("ID del usuario que publica: ")
+    # Validacion ID usuario 
+    
 
     conexion = conectar()
     if not conexion:

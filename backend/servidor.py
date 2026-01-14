@@ -14,7 +14,8 @@ from productos import(
     obtener_productos,
     buscar_producto_por_nombre,
     actualizar_productos,
-    eliminar_productos
+    eliminar_productos,
+    validar_numerodecimal
 )
 
 from carrito import(
@@ -129,7 +130,22 @@ def mostrar_menu_por_rol(usuario):
                 
             # Opcion 8. Registrar producto:
             elif opcion == "8":
-                registrar_producto()
+                print("-- REGISTRA PRODUCTOS ---")
+                titulo = input("Titulo del producto: ").strip()
+                precio_input = input("Precio del producto: ").strip()
+                imagen = input("Ruta o nombre de la imagen ").strip()
+                descripcion = input("Descripcion del producto: ").strip()
+                stock = input("Cantidad en el stock: ").strip()
+                id_usuario = usuario[0]
+
+                if not (titulo and precio_input and imagen and descripcion and stock and id_usuario ):
+                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+                else: 
+                    precio = validar_numerodecimal(precio_input)
+                    if precio is None:
+                        print("X Error debe ingresar valores numericos enteros o decimales validos ")
+                    else:
+                        registrar_producto(titulo, precio, imagen, descripcion, stock, id_usuario)
                 
             # Opcion 9. Mostrar productos:
             elif opcion == "9":
