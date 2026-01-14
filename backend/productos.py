@@ -14,8 +14,10 @@ def registrar_producto(titulo, precio, imagen, descripcion, stock, id_usuario):
 
     print("REGISTRAR PRODUCTO")
 
-    # Validacion ID usuario 
-    
+    # Validacion stock numerico
+    if not stock.isdigit():
+        print("X Error El stock debe ser un valor numerico")
+        return
 
     conexion = conectar()
     if not conexion:
@@ -93,6 +95,19 @@ def actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock
         return
     try:
         cursor = conexion.cursor()
+        # Validacion de que el id exista 
+        
+        cursor.execute("SELECT * FROM producto WHERE id_producto = %s" , (id_producto,))
+        usuario = cursor.fetchone()
+        if not usuario:
+            print("No existe un producto con ese ID")
+            return
+        
+         # Validacion stock numerico
+        if not stock.isdigit():
+            print("X Error El stock debe ser un valor numerico")
+            return
+        
         consulta = """
         UPDATE producto 
         SET titulo_producto = %s,

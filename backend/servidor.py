@@ -158,14 +158,29 @@ def mostrar_menu_por_rol(usuario):
             
             # Opcion 11. Actualizar productos:
             elif opcion == "11":
-                id_producto = input("ID del producto a actualizar: ")
-                titulo = input("Nuevo titulo: ")
-                precio = input("Nuevo precio: ")
-                imagen = input("Nueva ruta de la imagen / URL: ")
-                descripcion = input("Nueva descripcion: ")
-                stock = input("Nuevo stock: ")
-                id_usuario = input("ID del usuario que publica: ")
-                actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+                id_producto = input("ID del producto a actualizar: ").strip()
+                titulo = input("Nuevo titulo: ").strip()
+                precio_input = input("Nuevo precio: ").strip()
+                imagen = input("Nueva ruta de la imagen / URL: ").strip()
+                descripcion = input("Nueva descripcion: ").strip()
+                stock = input("Nuevo stock: ").strip()
+                id_usuario = usuario[0]
+                
+                # Validacion de que no hayan espacios vacios 
+                if not (id_producto and titulo and precio_input and imagen and descripcion and stock and id_usuario ):
+                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+                else:
+                    
+                    # Validacion de id numerico
+                    if not id_producto.isdigit():
+                        print("X Error el Id debe ser valor numerico")
+                    
+                    # Validacion de precio que sea float 
+                    precio = validar_numerodecimal(precio_input)
+                    if precio is None:
+                        print("X Error debe ingresar valores numericos enteros o decimales validos ")
+                    else:
+                        actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
                 
             # Opcion 12. Eliminar productos:
             elif opcion == "12":
@@ -354,7 +369,7 @@ if __name__ == "__main__":
 
 # Se debe mirar muy bien las funciones del usuario            
                 
-# ------------------  YA QUEDO LA FUNCION DE ACTUALIZAR ROL FALTA, SEGUIR CON MAS PRUEBAS -----------------------------------
+# ------------------  Se debe empezar a mirar la funcion de eliminar productos y hacer las pruebas-----------------------------------
 
 
 

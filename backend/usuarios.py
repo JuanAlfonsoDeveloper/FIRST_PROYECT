@@ -196,8 +196,16 @@ def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contrase�
         if not telefono.isdigit():
             print("X Error El telefono del usuario debe ser numerico")
             return
-        
         cursor = conexion.cursor()
+        
+        # Validacion de que el id exista 
+        
+        cursor.execute("SELECT * FROM usuario WHERE id_usuario = %s" , (id_usuario,))
+        usuario = cursor.fetchone()
+        if not usuario:
+            print("No existe un usuario con ese ID")
+            return
+        
         cifrar_contraseña = hashlib.sha256(contraseña.encode()).hexdigest()
         consulta = """
         UPDATE usuario SET nombre_usuario=%s, apellido_usuario=%s,
