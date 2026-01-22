@@ -1,11 +1,5 @@
-print("\n --- MENU PRINCIPAL ADMINISTRADOR ---")
-         
-           
-          
-            print("12. Eliminar productos: ")
-            print("13. Cerrar sesion: ")
 
-
+        
 
 
 elif id_rol == 2: #Vendedor
@@ -13,7 +7,7 @@ elif id_rol == 2: #Vendedor
             print("1. Registrar producto: ")
             print("2. Mostrar productos: ")
             print("3. Buscar productos: ")
-            print("4. Actualizar productos: ")
+            print("4. Actualizar productos: ") xxxxxxxxxxxxxxxxxxxxxxxxxx
             print("5. Eliminar productos: ")
             print("6. Cerrar sesion: ")
             opcion = input("Seleccione una opcion: ")
@@ -33,7 +27,7 @@ elif id_rol == 3: #Cliente
 
 
 
-Validaciones completas por el lado del administrador falta que vendedor y usuario 
+Se reajusto el menu con los modulos para que las validadaciones quedaran en los modulos  
 
 
 

@@ -60,12 +60,7 @@ def mostrar_menu_por_rol(usuario):
                 contraseña = input("Digite su contraseña: ").strip()
                 direccion = input("Digite su direccion: ").strip()
                 id_rol_nuevo = input("Digite su codigo del rol: ").strip()
-                
-                
-                if not (nombre and apellido and correo and telefono and contraseña and direccion and id_rol_nuevo):
-                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
-                else: 
-                    registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo)
+                registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo)
                     
             
             # Opcion 2. Mostrar todos los usuarios:
@@ -78,14 +73,14 @@ def mostrar_menu_por_rol(usuario):
                 print("--- BUSCAR USUARIO POR CORREO ---")
                 correo = input("Correo a buscar: ")
                 usuario = obtener_usuario_por_correo(correo)
-                print("Resultado", usuario if usuario else "Usuario no encontrado")
+                
                 
             # Opcion 4. Buscar usuarios por telefono:
             elif opcion == "4":
                 print("--- BUSCAR USUARIO POR TELEFONO ---")
                 telefono = input("Telefono a buscar: ")
                 usuario = obtener_usuario_por_telefono(telefono)
-                print("Resultado", usuario if usuario else "Usuario no encontrado")
+                
                 
             # Opcion 5. Actualizar usuario: 
             elif opcion == "5":
@@ -97,13 +92,11 @@ def mostrar_menu_por_rol(usuario):
                 telefono = input("Nuevo telefono: ").strip()
                 contraseña = input("Nueva contraseña ").strip()
                 direccion = input("Nueva direccion: ").strip()  
-                if not (id_usuario and nombre and apellido and correo and telefono and contraseña and  direccion  ):
-                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
-                else: 
-                    actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
+                actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
             
             # Opcion 6. Eliminar usuario:
             elif opcion == "6":
+                print("--- ELIMINAR USUARIO ---")
                 id_usuario = input("ID del usuario a eliminar: ")
                 eliminar_usuario(id_usuario)
                 
@@ -112,19 +105,6 @@ def mostrar_menu_por_rol(usuario):
                 print("-- CAMBIAR ROL DE USUARIO --")
                 id_usuario_cambiar = input("ID del usuario: ").strip()
                 nuevo_rol = input("Nuevo Rol (1 - Admin, 2 - Vendedor, 3 - Cliente ): ").strip()
-                
-                # Validacion para que sea numerico
-                
-                if not id_usuario_cambiar.isdigit():
-                    print("Error: el Id debe ser numerico")
-                    continue
-                
-                # Validacion que el rol exista 
-                
-                if nuevo_rol not in ("1","2","3"):
-                    print("Error Rol invalido")
-                    continue 
-                
                 cambiar_rol_usuario(id_usuario_cambiar , nuevo_rol)
             
                 
@@ -137,15 +117,7 @@ def mostrar_menu_por_rol(usuario):
                 descripcion = input("Descripcion del producto: ").strip()
                 stock = input("Cantidad en el stock: ").strip()
                 id_usuario = usuario[0]
-
-                if not (titulo and precio_input and imagen and descripcion and stock and id_usuario ):
-                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
-                else: 
-                    precio = validar_numerodecimal(precio_input)
-                    if precio is None:
-                        print("X Error debe ingresar valores numericos enteros o decimales validos ")
-                    else:
-                        registrar_producto(titulo, precio, imagen, descripcion, stock, id_usuario)
+                registrar_producto(titulo, precio_input, imagen, descripcion, stock, id_usuario)
                 
             # Opcion 9. Mostrar productos:
             elif opcion == "9":
@@ -153,43 +125,27 @@ def mostrar_menu_por_rol(usuario):
                 
             # Opcion 10. Buscar productos:
             elif opcion == "10":
+                print("-- BUSCAR PRODUCTOS ---")
                 nombre = input("Nombre del producto: ")
                 buscar_producto_por_nombre(nombre)
             
             # Opcion 11. Actualizar productos:
             elif opcion == "11":
+                print("-- ACTUALIZAR PRODUCTOS ---")
                 id_producto = input("ID del producto a actualizar: ").strip()
                 titulo = input("Nuevo titulo: ").strip()
                 precio_input = input("Nuevo precio: ").strip()
                 imagen = input("Nueva ruta de la imagen / URL: ").strip()
                 descripcion = input("Nueva descripcion: ").strip()
                 stock = input("Nuevo stock: ").strip()
-                id_usuario = usuario[0]
-                
-                # Validacion de que no hayan espacios vacios 
-                if not (id_producto and titulo and precio_input and imagen and descripcion and stock and id_usuario ):
-                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
-                else:
-                    
-                    # Validacion de id numerico
-                    if not id_producto.isdigit():
-                        print("X Error el Id debe ser valor numerico")
-                    
-                    # Validacion de precio que sea float 
-                    precio = validar_numerodecimal(precio_input)
-                    if precio is None:
-                        print("X Error debe ingresar valores numericos enteros o decimales validos ")
-                    else:
-                        actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+                id_usuario = usuario[0]   
+                actualizar_productos(id_producto, titulo, precio_input, imagen, descripcion, stock, id_usuario)
                 
             # Opcion 12. Eliminar productos:
             elif opcion == "12":
+                print("-- ELIMINAR PRODUCTOS ---")
                 id_producto = input("ID del producto a eliminar: ")
-                # Validacion de que no hayan espacios vacios 
-                if not (id_producto):
-                    print("X ERROR: ID No encontrado intente nuevamente. Intente nuevamente")
-                else:
-                    eliminar_productos(id_producto)
+                eliminar_productos(id_producto)
             
             # Opcion 13. Cerrar sesion:
             elif opcion == "13":
@@ -213,7 +169,23 @@ def mostrar_menu_por_rol(usuario):
             
             # Opcion 1. Registrar producto:
             if opcion == "1":
-                registrar_producto()
+                print("-- REGISTRA PRODUCTOS ---")
+                titulo = input("Titulo del producto: ").strip()
+                precio_input = input("Precio del producto: ").strip()
+                imagen = input("Ruta o nombre de la imagen ").strip()
+                descripcion = input("Descripcion del producto: ").strip()
+                stock = input("Cantidad en el stock: ").strip()
+                id_usuario = usuario[0]
+                
+                # Validacion de que todos los campos esten llenos 
+                if not (titulo and precio_input and imagen and descripcion and stock and id_usuario ):
+                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+                else: 
+                    precio = validar_numerodecimal(precio_input)
+                    if precio is None:
+                        print("X Error debe ingresar valores numericos enteros o decimales validos en el campo del precio")
+                    else:
+                        registrar_producto(titulo, precio, imagen, descripcion, stock, id_usuario)
                 
             # Opcion 2. Mostrar productos:
             elif opcion == "2":
@@ -221,20 +193,40 @@ def mostrar_menu_por_rol(usuario):
                 
             # Opcion 3. Buscar productos:
             elif opcion == "3":
+                print("-- BUSCAR PRODUCTOS ---")
                 nombre = input("Nombre del producto: ")
-                buscar_producto_por_nombre(nombre)
+                if not (nombre):
+                    print("X ERROR: No has puesto ningun nombre")
+                else:
+                    buscar_producto_por_nombre(nombre)
             
             # Opcion 4. Actualizar productos:
             elif opcion == "4":
-                id_producto = input("ID del producto a actualizar: ")
-                titulo = input("Nuevo titulo: ")
-                precio = input("Nuevo precio: ")
-                imagen = input("Nueva ruta de la imagen / URL: ")
-                descripcion = input("Nueva descripcion: ")
-                stock = input("Nuevo stock: ")
-                id_usuario = input("ID del usuario que publica: ")
-                actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+                print("-- ACTUALIZAR PRODUCTOS ---")
+                id_producto = input("ID del producto a actualizar: ").strip()
+                titulo = input("Nuevo titulo: ").strip()
+                precio_input = input("Nuevo precio: ").strip()
+                imagen = input("Nueva ruta de la imagen / URL: ").strip()
+                descripcion = input("Nueva descripcion: ").strip()
+                stock = input("Nuevo stock: ").strip()
+                id_usuario = usuario[0]
                 
+                # Validacion de que no hayan espacios vacios 
+                if not (id_producto and titulo and precio_input and imagen and descripcion and stock and id_usuario ):
+                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+                else:
+                    
+                    # Validacion de id numerico
+                    if not id_producto.isdigit():
+                        print("X Error el Id debe ser valor numerico")
+                    else: 
+                        # Validacion de precio que sea float 
+                        precio = validar_numerodecimal(precio_input)
+                        if precio is None:
+                            print("X Error debe ingresar valores numericos enteros o decimales validos en el campo del precio ")
+                        else:
+                            actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+                        
             # Opcion 5. Eliminar productos:
             elif opcion == "5":
                 id_producto = input("ID del producto a eliminar: ")

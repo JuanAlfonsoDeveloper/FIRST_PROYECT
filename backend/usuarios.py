@@ -12,10 +12,22 @@ def cambiar_rol_usuario(id_usuario_cambiar, nuevo_rol):
     try: 
         cursor = conexion.cursor()
         
-        # Validacion ID usuario 
-        if not id_usuario_cambiar.isdigit():
-            print("X Error El ID del usuario debe ser numero")
+        # Validacion de que no halla espacio vacio
+        if not (id_usuario_cambiar and nuevo_rol):
+            print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
             return
+        
+        # Validacion para que sea numerico
+        if not id_usuario_cambiar.isdigit():
+            print("Error: el Id debe ser numerico")
+            return
+        
+        
+        # Validacion que el rol exista  
+        if nuevo_rol not in ("1","2","3"):
+            print("Error Rol invalido")
+            return 
+                
         
         # Validar rol 
         if nuevo_rol not in ("1","2","3"):
@@ -63,35 +75,39 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
     try:
         cursor = conexion.cursor()
         
-        if not telefono.isdigit():
-            print("X Error El telefono del usuario debe ser numerico")
-            return
-        
-        # --- VALIDACION DE DUPLICADOS ---
-        cursor.execute(
-            "SELECT id_usuario FROM usuario WHERE correo_usuario = %s",(correo,))
-        if cursor.fetchone():
-            print("X Error: El correo ya esta registrado. ")
-            return
-        
-        cursor.execute(
-            "SELECT id_usuario FROM usuario WHERE telefono_usuario = %s",(telefono,))
-        if cursor.fetchone():
-            print("X Error: El telefono ya esta registrado. ")
-            return
-        
-        consulta = """
-        INSERT INTO usuario ( 
-            nombre_usuario, apellido_usuario, correo_usuario, 
-            telefono_usuario, contraseña_usuario, direccion_usuario, id_rol
-        ) VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """
+        if not (nombre and apellido and correo and telefono and contraseña and direccion and id_rol_nuevo):
+            print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+        else: 
+            # Validacion de que el telefono sea numerico 
+            if not telefono.isdigit():
+                print("X Error El telefono del usuario debe ser numerico")
+                return
 
-        contraseña_cifrada = cifrar_contraseña(contraseña)
-        datos = (nombre, apellido, correo, telefono, contraseña_cifrada, direccion, id_rol_nuevo)
-        cursor.execute(consulta, datos)
-        conexion.commit()
-        print("Usuario registrado correctamente")
+            # --- VALIDACION DE DUPLICADOS ---
+            cursor.execute(
+                "SELECT id_usuario FROM usuario WHERE correo_usuario = %s",(correo,))
+            if cursor.fetchone():
+                print("X Error: El correo ya esta registrado. ")
+                return
+            
+            cursor.execute(
+                "SELECT id_usuario FROM usuario WHERE telefono_usuario = %s",(telefono,))
+            if cursor.fetchone():
+                print("X Error: El telefono ya esta registrado. ")
+                return
+            
+            consulta = """
+            INSERT INTO usuario ( 
+                nombre_usuario, apellido_usuario, correo_usuario, 
+                telefono_usuario, contraseña_usuario, direccion_usuario, id_rol
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """
+
+            contraseña_cifrada = cifrar_contraseña(contraseña)
+            datos = (nombre, apellido, correo, telefono, contraseña_cifrada, direccion, id_rol_nuevo)
+            cursor.execute(consulta, datos)
+            conexion.commit()
+            print("Usuario registrado correctamente")
     except Exception as e:
         print("Error al registrar usuario:", e)
     finally:
@@ -126,11 +142,17 @@ def obtener_usuario_por_correo(correo):
     if not conexion:
         return
     try: 
+        # VALIDACION DE QUE EL CAMPO NO ESTE VACIO
+        if not (correo):
+            print("X ERROR: El campo esta vacio")
+            return
+        
         cursor = conexion.cursor()
         consulta = "SELECT * FROM usuario WHERE correo_usuario = %s"
         cursor.execute(consulta, (correo,))
         usuario = cursor.fetchone()
-        return usuario
+        print("Resultado", usuario if usuario else "Usuario no encontrado")
+        return 
     except Exception as e:
         print("Error al obtener usuario:", e)
     finally:
@@ -142,6 +164,12 @@ def obtener_usuario_por_telefono(telefono):
     if not conexion:
         return
     try:
+        # VALIDACION DE QUE EL CAMPO NO ESTE VACIO
+        if not (telefono):
+            print("X ERROR: El campo esta vacio")
+            return
+         
+         # VALIDACION DE QUE EL TELEFONO SEA NUMERO   
         if not telefono.isdigit():
             print("X Error El telefono del usuario debe ser numerico")
             return
@@ -149,7 +177,8 @@ def obtener_usuario_por_telefono(telefono):
         consulta = "SELECT * FROM usuario WHERE telefono_usuario = %s"
         cursor.execute(consulta, (telefono))
         usuario = cursor.fetchone()
-        return usuario
+        print("Resultado", usuario if usuario else "Usuario no encontrado")
+        return 
     except Exception as e:
         print("Error al obtener usuario por telefono:", e)
     finally:
@@ -190,7 +219,12 @@ def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contrase�
         print("Error a conectar a la base de datos.")
         return
     try:
-        
+        # Validacion de que los cfampos no esten vacios 
+        if not (id_usuario and nombre and apellido and correo and telefono and contraseña and  direccion  ):
+            print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+            return
+                
+    
         if not telefono.isdigit():
             print("X Error El telefono del usuario debe ser numerico")
             return

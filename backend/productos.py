@@ -10,9 +10,20 @@ def validar_numerodecimal(precio_input):
      
 
 # -- REGISTRAR PRODUCTOS --
-def registrar_producto(titulo, precio, imagen, descripcion, stock, id_usuario):
+def registrar_producto(titulo, precio_input, imagen, descripcion, stock, id_usuario,):
 
-    print("REGISTRAR PRODUCTO")
+    # Validacion de que no haya espacios en blanco
+    if not (titulo and precio_input and imagen and descripcion and stock and id_usuario ):
+        print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+        return
+    else: 
+        
+    # Funcion de que los rectifique que son decimales 
+        precio = validar_numerodecimal(precio_input)
+        if precio is None:
+            print("X Error debe ingresar valores numericos enteros o decimales validos en el campo del precio")
+            return
+                    
 
     # Validacion stock numerico
     if not stock.isdigit():
@@ -64,11 +75,17 @@ def obtener_productos():
         conexion.close()
 
 # -- BUSCADOR DE PRODUCTOS --
-def buscar_producto_por_nombre(nombre_producto):
+def buscar_producto_por_nombre(nombre):
     conexion = conectar()
     if not conexion:
         return
     try:
+        # Validacion de que no haya espacios en blanco
+        if not (nombre):
+            print("X ERROR: No has puesto ningun nombre")
+            return
+        
+        nombre_producto = nombre        
         cursor = conexion.cursor()
         consulta = "SELECT * FROM  producto WHERE titulo_producto LIKE %s"
         valor = f"%{nombre_producto}%"
@@ -88,12 +105,32 @@ def buscar_producto_por_nombre(nombre_producto):
 
 
 # -- ACTUALIZAR PRODUCTOS --
-def actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario):
+def actualizar_productos(id_producto, titulo, precio_input, imagen, descripcion, stock, id_usuario):
     conexion = conectar()
     if not conexion:
         print("No se pudo establecer conexión con la base de datos.")
         return
     try:
+        # Validacion de que no hayan espacios vacios 
+        if not (id_producto and titulo and precio_input and imagen and descripcion and stock and id_usuario ):
+            print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+            return
+        else:
+            # Validacion de id numerico
+            if not id_producto.isdigit():
+                print("X Error el Id debe ser valor numerico")
+                return
+            else: 
+                # Validacion de precio que sea float 
+                precio = validar_numerodecimal(precio_input)
+                if precio is None:
+                    print("X Error debe ingresar valores numericos enteros o decimales validos en el campo del precio")
+                    return
+                # Validacion stock numerico
+                if not stock.isdigit():
+                    print("X Error El stock debe ser un valor numerico")
+                    return
+        
         cursor = conexion.cursor()
         # Validacion de que el id exista 
         
@@ -103,10 +140,7 @@ def actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock
             print("No existe un producto con ese ID")
             return
         
-         # Validacion stock numerico
-        if not stock.isdigit():
-            print("X Error El stock debe ser un valor numerico")
-            return
+         
         
         consulta = """
         UPDATE producto 
@@ -137,12 +171,30 @@ def eliminar_productos(id_producto):
     
     try: 
         cursor = conexion.cursor()
-        # Validacion de que el id exista 
         
+        # Validacion de que no hayan espacios vacios 
+        if not (id_producto):
+            print("X ERROR: No deber haber campo vacio")
+            return
+
+        # Validacion de que el id sea numerico
+        if not id_producto.isdigit():
+            print("X Error El id debe ser un valor numerico")
+            return
+        
+        # Validacion de que el id exista 
         cursor.execute("SELECT * FROM producto WHERE id_producto = %s" , (id_producto,))
-        usuario = cursor.fetchone()
-        if not usuario:
+        producto = cursor.fetchone()
+        if not producto:
             print("No existe un producto con ese ID")
+            return
+        
+        # Confirmacion de eliminacion
+        print(f"¿Estas seguro de eliminar al producto:  {producto[1]} ")
+        confirmacion = input("Para confirmar la eliminacion escribe exactamente `ELIMINAR` todo en mayusculas:  ").strip() 
+        
+        if confirmacion.upper() != "ELIMINAR":
+            print("Eliminacion cancelada") 
             return
         
         consulta = "DELETE FROM producto WHERE id_producto = %s"
