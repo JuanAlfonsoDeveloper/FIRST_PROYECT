@@ -32,4 +32,12 @@ elif id_rol == 3: #Cliente
 
 
 
-De administrador se hizo hasta eliminar productos pero faltan mas validaciones
+
+Validaciones completas por el lado del administrador falta que vendedor y usuario 
+
+
+
+
+Validaciones:
+Que no permita datos en blanco 
+Que no permita datos en letras si es numero

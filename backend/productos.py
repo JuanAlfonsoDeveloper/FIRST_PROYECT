@@ -141,6 +141,9 @@ def eliminar_productos(id_producto):
         
         cursor.execute("SELECT * FROM producto WHERE id_producto = %s" , (id_producto,))
         usuario = cursor.fetchone()
+        if not usuario:
+            print("No existe un producto con ese ID")
+            return
         
         consulta = "DELETE FROM producto WHERE id_producto = %s"
         cursor.execute(consulta, (id_producto,))

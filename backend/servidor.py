@@ -377,11 +377,6 @@ if __name__ == "__main__":
     
 
 
-# Se debe mirar muy bien las funciones del usuario            
-                
-# ------------------  Se debe empezar a mirar la funcion de eliminar productos y hacer las pruebas-----------------------------------
-
-
 
 
 
