@@ -107,7 +107,6 @@ def mostrar_menu_por_rol(usuario):
                 nuevo_rol = input("Nuevo Rol (1 - Admin, 2 - Vendedor, 3 - Cliente ): ").strip()
                 cambiar_rol_usuario(id_usuario_cambiar , nuevo_rol)
             
-# ---------------------------------------------------------------------------------------------     
             # Opcion 8. Registrar producto:
             elif opcion == "8":
                 print("-- REGISTRA PRODUCTOS ---")

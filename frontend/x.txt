@@ -35,3 +35,12 @@ elif id_rol == 3: #Cliente
 Validaciones:
 Que no permita datos en blanco 
 Que no permita datos en letras si es numero
+
+
+
+
+--- TOCA PENSAR EN CREAR CUENTA PARA LOS USUARIOS QUE NO TIENEN CUENTA
+
+FUNCIONES PARA USUARIO 
+MODIFICAR SU CUENTA --
+EN EL MENU DEBE IR CREAR CUENTA PERO QUE AUTOMATICCAMENTE LE DIGA QUE ES PARA CLIENTE 
