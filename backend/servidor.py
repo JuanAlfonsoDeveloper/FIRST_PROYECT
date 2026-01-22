@@ -107,7 +107,7 @@ def mostrar_menu_por_rol(usuario):
                 nuevo_rol = input("Nuevo Rol (1 - Admin, 2 - Vendedor, 3 - Cliente ): ").strip()
                 cambiar_rol_usuario(id_usuario_cambiar , nuevo_rol)
             
-                
+# ---------------------------------------------------------------------------------------------     
             # Opcion 8. Registrar producto:
             elif opcion == "8":
                 print("-- REGISTRA PRODUCTOS ---")
@@ -176,16 +176,7 @@ def mostrar_menu_por_rol(usuario):
                 descripcion = input("Descripcion del producto: ").strip()
                 stock = input("Cantidad en el stock: ").strip()
                 id_usuario = usuario[0]
-                
-                # Validacion de que todos los campos esten llenos 
-                if not (titulo and precio_input and imagen and descripcion and stock and id_usuario ):
-                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
-                else: 
-                    precio = validar_numerodecimal(precio_input)
-                    if precio is None:
-                        print("X Error debe ingresar valores numericos enteros o decimales validos en el campo del precio")
-                    else:
-                        registrar_producto(titulo, precio, imagen, descripcion, stock, id_usuario)
+                registrar_producto(titulo, precio_input, imagen, descripcion, stock, id_usuario)
                 
             # Opcion 2. Mostrar productos:
             elif opcion == "2":
@@ -195,10 +186,7 @@ def mostrar_menu_por_rol(usuario):
             elif opcion == "3":
                 print("-- BUSCAR PRODUCTOS ---")
                 nombre = input("Nombre del producto: ")
-                if not (nombre):
-                    print("X ERROR: No has puesto ningun nombre")
-                else:
-                    buscar_producto_por_nombre(nombre)
+                buscar_producto_por_nombre(nombre)
             
             # Opcion 4. Actualizar productos:
             elif opcion == "4":
@@ -209,33 +197,14 @@ def mostrar_menu_por_rol(usuario):
                 imagen = input("Nueva ruta de la imagen / URL: ").strip()
                 descripcion = input("Nueva descripcion: ").strip()
                 stock = input("Nuevo stock: ").strip()
-                id_usuario = usuario[0]
-                
-                # Validacion de que no hayan espacios vacios 
-                if not (id_producto and titulo and precio_input and imagen and descripcion and stock and id_usuario ):
-                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
-                else:
-                    
-                    # Validacion de id numerico
-                    if not id_producto.isdigit():
-                        print("X Error el Id debe ser valor numerico")
-                    else: 
-                        # Validacion de precio que sea float 
-                        precio = validar_numerodecimal(precio_input)
-                        if precio is None:
-                            print("X Error debe ingresar valores numericos enteros o decimales validos en el campo del precio ")
-                        else:
-                            actualizar_productos(id_producto, titulo, precio, imagen, descripcion, stock, id_usuario)
+                id_usuario = usuario[0]   
+                actualizar_productos(id_producto, titulo, precio_input, imagen, descripcion, stock, id_usuario)
                         
             # Opcion 5. Eliminar productos:
             elif opcion == "5":
+                print("-- ELIMINAR PRODUCTOS ---")
                 id_producto = input("ID del producto a eliminar: ")
-                
-                # Validacion de que no hayan espacios vacios 
-                if not (id_producto):
-                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
-                else:
-                    eliminar_productos(id_producto)
+                eliminar_productos(id_producto)
                 
             
             # Opcion 6. Cerrar sesion:

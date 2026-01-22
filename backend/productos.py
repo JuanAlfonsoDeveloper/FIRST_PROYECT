@@ -193,7 +193,7 @@ def eliminar_productos(id_producto):
         print(f"¿Estas seguro de eliminar al producto:  {producto[1]} ")
         confirmacion = input("Para confirmar la eliminacion escribe exactamente `ELIMINAR` todo en mayusculas:  ").strip() 
         
-        if confirmacion.upper() != "ELIMINAR":
+        if confirmacion != "ELIMINAR":
             print("Eliminacion cancelada") 
             return
         

@@ -27,7 +27,7 @@ elif id_rol == 3: #Cliente
 
 
 
-Se reajusto el menu con los modulos para que las validadaciones quedaran en los modulos  
+  Quedan pendiente el menu de cliente por hacer las pruebas
 
 
 

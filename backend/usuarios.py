@@ -283,7 +283,7 @@ def eliminar_usuario(id_usuario):
         confirmacion = input("Para confirmar la eliminacion escribe exactamente `ELIMINAR` todo en mayusculas:  ").strip() 
         
         # Confirmacion de eliminacion
-        if confirmacion.upper() != "ELIMINAR":
+        if confirmacion != "ELIMINAR":
             print("Eliminacion cancelada") 
             return
         cursor.execute("SELECT COUNT(*) FROM producto WHERE id_usuario = %s", (id_usuario,))
