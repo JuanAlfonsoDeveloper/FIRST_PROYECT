@@ -24,10 +24,8 @@ def cambiar_rol_usuario(id_usuario_cambiar, nuevo_rol):
         
         # Verificar si el usuario existe
         cursor.execute(
-            "SELECT nombre_usuario, id_rol FROM usuario WHERE id_usuario = %s", (id_usuario_cambiar,)
-        )
+            "SELECT nombre_usuario, id_rol FROM usuario WHERE id_usuario = %s", (id_usuario_cambiar,))
         usuario = cursor.fetchone()
-        
         if not usuario: 
             print("X Error el usuario no existe")
             return

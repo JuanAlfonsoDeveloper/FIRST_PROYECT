@@ -185,7 +185,11 @@ def mostrar_menu_por_rol(usuario):
             # Opcion 12. Eliminar productos:
             elif opcion == "12":
                 id_producto = input("ID del producto a eliminar: ")
-                eliminar_productos(id_producto)
+                # Validacion de que no hayan espacios vacios 
+                if not (id_producto):
+                    print("X ERROR: ID No encontrado intente nuevamente. Intente nuevamente")
+                else:
+                    eliminar_productos(id_producto)
             
             # Opcion 13. Cerrar sesion:
             elif opcion == "13":
@@ -234,7 +238,13 @@ def mostrar_menu_por_rol(usuario):
             # Opcion 5. Eliminar productos:
             elif opcion == "5":
                 id_producto = input("ID del producto a eliminar: ")
-                eliminar_productos(id_producto)
+                
+                # Validacion de que no hayan espacios vacios 
+                if not (id_producto):
+                    print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+                else:
+                    eliminar_productos(id_producto)
+                
             
             # Opcion 6. Cerrar sesion:
             elif opcion == "6":

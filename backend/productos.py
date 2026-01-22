@@ -137,6 +137,11 @@ def eliminar_productos(id_producto):
     
     try: 
         cursor = conexion.cursor()
+        # Validacion de que el id exista 
+        
+        cursor.execute("SELECT * FROM producto WHERE id_producto = %s" , (id_producto,))
+        usuario = cursor.fetchone()
+        
         consulta = "DELETE FROM producto WHERE id_producto = %s"
         cursor.execute(consulta, (id_producto,))
         conexion.commit()
