@@ -142,8 +142,20 @@ def actualizar_cantidad_carrito():
 
 # -- ELIMINAR PRODUCTOS DEL CARRITO --
 def eliminar_producto_carrito():
-    print("--ELIMINAR PRODUCTO DEL CARRITO --")
+   
     id_carrito = input("Digite el ID del carrito a eliminar: ")
+    
+    # Validacion de que no hayan espacios vacios 
+    if not (id_carrito ):
+        print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+        return
+    
+    # Validacion de id numerico 
+    if not id_carrito.isdigit():
+        print("X Error el Id debe ser valor numerico")
+        return
+
+    
     conexion = conectar()
     if not conexion:
         print("Error al conectar con la base de datos")

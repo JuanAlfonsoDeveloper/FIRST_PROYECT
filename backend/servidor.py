@@ -237,9 +237,11 @@ def mostrar_menu_por_rol(usuario):
                 cantidad_carrito = input("Cantidad: ")
                 agregar_al_carrito(id_usuario,id_producto,cantidad_carrito)
             elif opcion == "3":
+                print("\n--MOSTRAR CARRITO--")
                 mostrar_carrito_por_usuario(id_usuario)
             elif opcion == "4":
-                eliminar_producto_carrito(id_usuario)
+                print("\n--ELIMINAR PRODUCTO DEL CARRITO--")
+                eliminar_producto_carrito()
             elif opcion == "5":
                 vaciar_carrito_usuario(id_usuario)
             elif opcion == "6":

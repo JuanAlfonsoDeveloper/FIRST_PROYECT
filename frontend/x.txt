@@ -5,13 +5,16 @@
 
 elif id_rol == 3: #Cliente
 
+            print("\n --- MENU PRINCIPAL CLIENTE ---")
+            print("1. Ver productos: ")
+            print("2. Agregar al carrito: ") ARREGLAR FUNCION EN DADO CASO DE QUE SE PRESENTEN DOS PRODUCTOS IGUALES
+            AGREGAR ACTULIAZAR CARRTIO
+            ACTUALIZAR USUARIO
             print("3. Ver carrito: ")
             print("4. Eliminar producto carrito: ")
             print("5. Vaciar carrito: ")
             print("6. Comfirmar compra: ")
             print("7. Cerrar sesion: ")
-            opcion = input("Seleccione una opcion: ")
-
 
 
 
@@ -33,3 +36,6 @@ Que no permita datos en letras si es numero
 FUNCIONES PARA USUARIO 
 MODIFICAR SU CUENTA --
 EN EL MENU DEBE IR CREAR CUENTA PERO QUE AUTOMATICCAMENTE LE DIGA QUE ES PARA CLIENTE 
+
+
+**** Se miraron funciones como eliminar carrtio perro no se completaron y se debe hacer re ajuste en agregar carrito
