@@ -2,20 +2,9 @@
         
 
 
-elif id_rol == 2: #Vendedor
-            print("\n --- MENU PRINCIPAL VENDEDORES ---")
-            print("1. Registrar producto: ")
-            print("2. Mostrar productos: ")
-            print("3. Buscar productos: ")
-            print("4. Actualizar productos: ") xxxxxxxxxxxxxxxxxxxxxxxxxx
-            print("5. Eliminar productos: ")
-            print("6. Cerrar sesion: ")
-            opcion = input("Seleccione una opcion: ")
-
 
 elif id_rol == 3: #Cliente
-            print("1. Ver productos: ")
-            print("2. Agregar al carrito: ")
+
             print("3. Ver carrito: ")
             print("4. Eliminar producto carrito: ")
             print("5. Vaciar carrito: ")

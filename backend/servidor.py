@@ -52,7 +52,7 @@ def mostrar_menu_por_rol(usuario):
             
             #  Opcion 1. Registrar Usuario
             if opcion == "1":
-                print("--- REGISTRAR USUARIOS ---")
+                print("\n--- REGISTRAR USUARIOS ---")
                 nombre = input("Digite su nombre: ").strip()
                 apellido = input("Digite su apellido: ").strip()
                 correo = input("Digite su correo: ").strip()
@@ -65,26 +65,26 @@ def mostrar_menu_por_rol(usuario):
             
             # Opcion 2. Mostrar todos los usuarios:
             elif opcion == "2":
-                print("--- MOSTRAR USUARIOS ---")
+                print("\n--- MOSTRAR USUARIOS ---")
                 obtener_usuario()
             
             # Opcion 3. Buscar usuarios por correo:
             elif opcion == "3":
-                print("--- BUSCAR USUARIO POR CORREO ---")
+                print("\n--- BUSCAR USUARIO POR CORREO ---")
                 correo = input("Correo a buscar: ")
                 usuario = obtener_usuario_por_correo(correo)
                 
                 
             # Opcion 4. Buscar usuarios por telefono:
             elif opcion == "4":
-                print("--- BUSCAR USUARIO POR TELEFONO ---")
+                print("\n--- BUSCAR USUARIO POR TELEFONO ---")
                 telefono = input("Telefono a buscar: ")
                 usuario = obtener_usuario_por_telefono(telefono)
                 
                 
             # Opcion 5. Actualizar usuario: 
             elif opcion == "5":
-                print("--- ACTUALIZAR USUARIO ---")
+                print("\n--- ACTUALIZAR USUARIO ---")
                 id_usuario = input("ID del usuario a actualizar: ").strip()
                 nombre = input("Nuevo nombre: ").strip()
                 apellido = input("Nuevo apellido: ").strip()
@@ -96,20 +96,20 @@ def mostrar_menu_por_rol(usuario):
             
             # Opcion 6. Eliminar usuario:
             elif opcion == "6":
-                print("--- ELIMINAR USUARIO ---")
+                print("\n--- ELIMINAR USUARIO ---")
                 id_usuario = input("ID del usuario a eliminar: ")
                 eliminar_usuario(id_usuario)
                 
             # Opcion 7. Cambiar rol a usuario
             elif opcion == "7":
-                print("-- CAMBIAR ROL DE USUARIO --")
+                print("\n-- CAMBIAR ROL DE USUARIO --")
                 id_usuario_cambiar = input("ID del usuario: ").strip()
                 nuevo_rol = input("Nuevo Rol (1 - Admin, 2 - Vendedor, 3 - Cliente ): ").strip()
                 cambiar_rol_usuario(id_usuario_cambiar , nuevo_rol)
             
             # Opcion 8. Registrar producto:
             elif opcion == "8":
-                print("-- REGISTRA PRODUCTOS ---")
+                print("\n-- REGISTRA PRODUCTOS ---")
                 titulo = input("Titulo del producto: ").strip()
                 precio_input = input("Precio del producto: ").strip()
                 imagen = input("Ruta o nombre de la imagen ").strip()
@@ -124,13 +124,13 @@ def mostrar_menu_por_rol(usuario):
                 
             # Opcion 10. Buscar productos:
             elif opcion == "10":
-                print("-- BUSCAR PRODUCTOS ---")
+                print("\n-- BUSCAR PRODUCTOS ---")
                 nombre = input("Nombre del producto: ")
                 buscar_producto_por_nombre(nombre)
             
             # Opcion 11. Actualizar productos:
             elif opcion == "11":
-                print("-- ACTUALIZAR PRODUCTOS ---")
+                print("\n-- ACTUALIZAR PRODUCTOS ---")
                 id_producto = input("ID del producto a actualizar: ").strip()
                 titulo = input("Nuevo titulo: ").strip()
                 precio_input = input("Nuevo precio: ").strip()
@@ -142,7 +142,7 @@ def mostrar_menu_por_rol(usuario):
                 
             # Opcion 12. Eliminar productos:
             elif opcion == "12":
-                print("-- ELIMINAR PRODUCTOS ---")
+                print("\n-- ELIMINAR PRODUCTOS ---")
                 id_producto = input("ID del producto a eliminar: ")
                 eliminar_productos(id_producto)
             
@@ -168,7 +168,7 @@ def mostrar_menu_por_rol(usuario):
             
             # Opcion 1. Registrar producto:
             if opcion == "1":
-                print("-- REGISTRA PRODUCTOS ---")
+                print("\n-- REGISTRA PRODUCTOS ---")
                 titulo = input("Titulo del producto: ").strip()
                 precio_input = input("Precio del producto: ").strip()
                 imagen = input("Ruta o nombre de la imagen ").strip()
@@ -183,13 +183,13 @@ def mostrar_menu_por_rol(usuario):
                 
             # Opcion 3. Buscar productos:
             elif opcion == "3":
-                print("-- BUSCAR PRODUCTOS ---")
+                print("\n-- BUSCAR PRODUCTOS ---")
                 nombre = input("Nombre del producto: ")
                 buscar_producto_por_nombre(nombre)
             
             # Opcion 4. Actualizar productos:
             elif opcion == "4":
-                print("-- ACTUALIZAR PRODUCTOS ---")
+                print("\n-- ACTUALIZAR PRODUCTOS ---")
                 id_producto = input("ID del producto a actualizar: ").strip()
                 titulo = input("Nuevo titulo: ").strip()
                 precio_input = input("Nuevo precio: ").strip()
@@ -201,7 +201,7 @@ def mostrar_menu_por_rol(usuario):
                         
             # Opcion 5. Eliminar productos:
             elif opcion == "5":
-                print("-- ELIMINAR PRODUCTOS ---")
+                print("\n-- ELIMINAR PRODUCTOS ---")
                 id_producto = input("ID del producto a eliminar: ")
                 eliminar_productos(id_producto)
                 
@@ -218,6 +218,7 @@ def mostrar_menu_por_rol(usuario):
             
                 
         elif id_rol == 3: #Cliente
+            print("\n --- MENU PRINCIPAL CLIENTE ---")
             print("1. Ver productos: ")
             print("2. Agregar al carrito: ")
             print("3. Ver carrito: ")
@@ -228,14 +229,13 @@ def mostrar_menu_por_rol(usuario):
             opcion = input("Seleccione una opcion: ")
             
             if opcion == "1":
+                print("\n-- PRODUCTOS EN EL CARRITO --")
                 obtener_productos()
             elif opcion == "2":
-                id_producto = input("ID del producto a agregar: ")
-                try: 
-                    cantidad = int(input("Cantidad: "))
-                except ValueError:
-                    print("Error la cantidad debe ser un numero entero. ")                
-                agregar_al_carrito(id_usuario,id_producto,cantidad)
+                print("\n--AGREGAR PRODUCTOS AL CARRITO--")
+                id_producto = input("ID del producto a agregar: ")                
+                cantidad_carrito = input("Cantidad: ")
+                agregar_al_carrito(id_usuario,id_producto,cantidad_carrito)
             elif opcion == "3":
                 mostrar_carrito_por_usuario(id_usuario)
             elif opcion == "4":

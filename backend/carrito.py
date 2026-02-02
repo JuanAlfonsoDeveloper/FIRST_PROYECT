@@ -1,14 +1,23 @@
 from db import conectar
 
 # -- AGRAGAR PRODUCTOS AL CARRITO -- 
-def agregar_al_carrito(id_usuario=None, id_producto=None, cantidad_carrito=None):
-    print("--AGREGAR PRODUCTOS AL CARRITO--")
-    if not id_usuario:
-        id_usuario = input("Id del usuario: ")
-    if not id_producto:
-        id_producto = input("Id del producto: ")
-    if not cantidad_carrito:
-        cantidad_carrito = int(input("Cantidad deseada : "))
+def agregar_al_carrito(id_usuario, id_producto, cantidad_carrito):
+    
+    # Validacion de que no hayan espacios vacios 
+    if not (id_usuario and id_producto and cantidad_carrito ):
+        print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+        return
+    
+    # Validacion de id numerico 
+    if not id_producto.isdigit():
+        print("X Error el Id debe ser valor numerico")
+        return
+
+    # Validacion de cantidad de carrito 
+    if not cantidad_carrito.isdigit():
+        print("X Error la cantidad debe ser valor numerico")
+        return
+    
 
     conexion = conectar()
     if not conexion:
@@ -73,7 +82,7 @@ def mostrar_carrito_por_usuario(id_usuario):
         resultados = cursor.fetchall()
 
         if resultados:
-            print("-- PRODUCTOS EN EL CARRITO --")
+            
             total_general = 0  
             total_cantidad = 0  
             for fila in resultados:
