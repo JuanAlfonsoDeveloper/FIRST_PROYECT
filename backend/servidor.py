@@ -222,96 +222,81 @@ def mostrar_menu_por_rol(usuario):
             print("1. Ver productos: ")
             print("2. Agregar al carrito: ")
             print("3. Ver carrito: ")
-            print("4. Eliminar producto carrito: ")
-            print("5. Vaciar carrito: ")
-            print("6. Comfirmar compra: ")
-            print("7. Cerrar sesion: ")
+            print("4. Actualizar cantidad del carrito: ")
+            print("5. Actualizar datos de usuario")
+            print("6. Eliminar producto carrito: ")
+            print("7. Vaciar carrito: ")
+            print("8. Comfirmar compra: ")
+            print("9. Cerrar sesion: ")
             opcion = input("Seleccione una opcion: ")
             
+            # Opcion 1. Ver productos 
             if opcion == "1":
                 print("\n-- PRODUCTOS EN EL CARRITO --")
                 obtener_productos()
+            
+            # Opcion 2. Agregar productos al carrito 
             elif opcion == "2":
                 print("\n--AGREGAR PRODUCTOS AL CARRITO--")
                 id_producto = input("ID del producto a agregar: ")                
                 cantidad_carrito = input("Cantidad: ")
                 agregar_al_carrito(id_usuario,id_producto,cantidad_carrito)
+            
+            # Opcion 3. Mostrar carrito
             elif opcion == "3":
                 print("\n--MOSTRAR CARRITO--")
                 mostrar_carrito_por_usuario(id_usuario)
+            
+            # Opcion 4. Actualizar cantidad del carrito
             elif opcion == "4":
-                print("\n--ELIMINAR PRODUCTO DEL CARRITO--")
-                eliminar_producto_carrito()
+                print("\n--ACTUALIZAR CANTIDAD DEL CARRITO--")
+                id_carrito = input("Ingrese el ID del carrito: ")
+                nueva_cantidad = input("Ingrese la nueva cantidad: ")
+                actualizar_cantidad_carrito(id_carrito, nueva_cantidad)
+                
+            # Opcion 5. Actualizar datos de usuario 
             elif opcion == "5":
-                vaciar_carrito_usuario(id_usuario)
+                print("\n--ACTUALIZAR DATOS DE USUARIO--")
+                
+                nombre = input("Nuevo nombre: ").strip()
+                apellido = input("Nuevo apellido: ").strip()
+                correo = input("Nuevo correo: ").strip()
+                telefono = input("Nuevo telefono: ").strip()
+                contraseña = input("Nueva contraseña ").strip()
+                direccion = input("Nueva direccion: ").strip()  
+                actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
+                
+            # Opcion 6. Eliminar productos del carrito
             elif opcion == "6":
-                confirmar_compra(id_usuario)
+                print("\n--ELIMINAR PRODUCTOS DEL CARRITO--")
+                id_carrito = input("Digite el ID del carrito a eliminar: ")
+                eliminar_producto_carrito(id_carrito)
+            
+            # Opcion 7. Vaciar carrito
             elif opcion == "7":
+                print("\n--VACIAR CARRITO--")
+                vaciar_carrito_usuario(id_usuario)
+                
+            # Opcion 8. Confirmar compra
+            elif opcion == "8":
+                print("\n--CONFIRMAR COMPRA--")
+                confirmar_compra(id_usuario)
+            
+            # Opcion 9. Agregar productos al carrito 
+            elif opcion == "9":
                 print("Cerrando sesion ...")
                 break
-            else: 
+            else:
                 print("Opcion no valida")
 
-
-            
-# -------------------------- MENU PRODUCTOS --------------------------
-
-# def menu_productos():
-#     while True:
-#         print("\n --- MENU DE PRODUCTOS ---")
-#         print("1. Registrar producto")
-#         print("2. Mostrar productos")
-#         print("3. Buscar producto por nombre")
-#         print("4. Actualizar producto")
-#         print("5. Eliminar producto")
-#         print("0. Volver al menu principal")
-
-#         opcion = input("Elige una opcion: ")
-        
-#         
-#         elif opcion == "2":
-#             
-#         
-#         elif opcion == "4":
-#             
-#         elif opcion == "5":
-#            
-#         elif opcion == "0":
-#             break
-#         else:
-#             print("Opcion no valida. ")
-
-# -------------------------- MENU CARRITO --------------------------
-       
-def menu_carrito():
-    while True:
-        print("\n --- MENU DE CARRITO ---")
-        print("1. Agregar producto al carrito: ")
-        print("2. Mostrar productos del carrito: ")
-        print("3. Actualizar cantidad del carrito: ")
-        print("4. Eliminar producto del carrito: ")
-        print("5. Vaciar carrito")
-        print("6. Confirmar compra")
-        print("0. Volver al menu principal")
-        
-        opcion = input("Elige una opcion: ")
-        
-        if opcion == "1":
-            agregar_al_carrito()
-        elif opcion == "2":
-            mostrar_carrito_por_usuario()
-        elif opcion == "3":
-            actualizar_cantidad_carrito()
-        elif opcion == "4":
-            eliminar_producto_carrito()
-        elif opcion == "5":
-            vaciar_carrito_usuario()
-        elif opcion == "6":
-            confirmar_compra()
-        elif opcion == "0":
-            break
-        else:
-            print("Opcion no valida. ")
+                
+                
+                
+                
+                
+                
+                
+    
             
             
 # -------------------------- MENU PRINCIPAL --------------------------

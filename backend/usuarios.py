@@ -238,6 +238,19 @@ def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contrase√
             print("No existe un usuario con ese ID")
             return
         
+        # --- VALIDACION DE DUPLICADOS ---
+        cursor.execute(
+            "SELECT id_usuario FROM usuario WHERE correo_usuario = %s",(correo,))
+        if cursor.fetchone():
+            print("X Error: El correo ya esta registrado. ")
+            return
+        
+        cursor.execute(
+            "SELECT id_usuario FROM usuario WHERE telefono_usuario = %s",(telefono,))
+        if cursor.fetchone():
+            print("X Error: El telefono ya esta registrado. ")
+            return
+    
         cifrar_contrase√±a = hashlib.sha256(contrase√±a.encode()).hexdigest()
         consulta = """
         UPDATE usuario SET nombre_usuario=%s, apellido_usuario=%s,
@@ -248,6 +261,8 @@ def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contrase√
         cursor.execute(consulta, datos)
         conexion.commit()
         print("Usuario actualizado correctamente")
+        print("Inicie nuevamente seccion")
+        return
     except Exception as e:
         print("Error al actualizar usuario:", e)
     finally:

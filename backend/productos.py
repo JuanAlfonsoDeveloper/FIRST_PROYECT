@@ -26,8 +26,8 @@ def registrar_producto(titulo, precio_input, imagen, descripcion, stock, id_usua
                     
 
     # Validacion stock numerico
-    if not stock.isdigit():
-        print("X Error El stock debe ser un valor numerico")
+    if not stock.isdigit() or int(stock) <= 0:
+        print("X Error El stock debe ser un valor numerico positivo")
         return
 
     conexion = conectar()
@@ -127,8 +127,8 @@ def actualizar_productos(id_producto, titulo, precio_input, imagen, descripcion,
                     print("X Error debe ingresar valores numericos enteros o decimales validos en el campo del precio")
                     return
                 # Validacion stock numerico
-                if not stock.isdigit():
-                    print("X Error El stock debe ser un valor numerico")
+                if not stock.isdigit() or int(stock) <= 0:
+                    print("X Error El stock debe ser un valor numerico positivo")
                     return
         
         cursor = conexion.cursor()

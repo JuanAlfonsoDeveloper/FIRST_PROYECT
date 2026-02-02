@@ -18,6 +18,11 @@ def agregar_al_carrito(id_usuario, id_producto, cantidad_carrito):
         print("X Error la cantidad debe ser valor numerico")
         return
     
+    # Validacion de cantidad de carrito no sea cero
+    if int(cantidad_carrito) == 0:
+        print("X Error la cantidad debe ser mayor a cero")
+        return
+    
 
     conexion = conectar()
     if not conexion:
@@ -36,23 +41,45 @@ def agregar_al_carrito(id_usuario, id_producto, cantidad_carrito):
             print("El producto no existe. ")
             return
         stock_disponible = int(resultado[0])
-        if cantidad_carrito <= 0:
-            print("Error la cantidad debe ser mayor que cero.")
-            return
-        if cantidad_carrito > stock_disponible:
-            print(f"No hay suficiente stock: Stock disponible: {stock_disponible}")
-            return
         
-        # 2. Verificar stock disponible del producto
-        consulta = """
-        INSERT INTO carrito (metodo_pago_carrito, cantidad_carrito, id_usuario, id_producto) 
-        VALUES (%s, %s, %s, %s)
-
+        # 2. Verificar si el producto ya esta en el carrito
+        consulta_carrito = """
+        SELECT cantidad_carrito FROM carrito WHERE id_usuario = %s AND id_producto = %s
         """
-        datos = ("pendiente", cantidad_carrito, id_usuario, id_producto)
-        cursor.execute(consulta, datos)
-        conexion.commit()
-        print("Producto agragado al carrito exitosamente. ")
+        cursor.execute(consulta_carrito,(id_usuario, id_producto))
+        producto_en_carrito = cursor.fetchone()
+        
+        if producto_en_carrito:
+            cantidad_actual = int(producto_en_carrito[0])
+            nueva_cantidad = cantidad_actual + cantidad_carrito
+            
+            if nueva_cantidad > stock_disponible:
+                print(f"No hay suficiente stock. Stock disponible: {stock_disponible}")
+                return
+            
+            consulta_update = """
+            UPDATE carrito SET cantidad_carrito = %s WHERE id_usuario = %s AND id_producto = %s
+            """
+            
+            cursor.execute(consulta_update, (nueva_cantidad, id_usuario, id_producto))
+            conexion.commit()
+            print("Cantidad del producto actualizada en el carrito ")
+            
+        else:
+            if cantidad_carrito > stock_disponible:
+                print(f"No hay suficiente stock. Stock disponible: {stock_disponible}")
+                return
+            
+            consulta_insert = """
+            INSERT INTO carrito (metodo_pago_carrito, cantidad_carrito, id_usuario, id_producto)
+            VALUES (%s, %s, %s, %s)
+            """
+            datos = ("pendiente", cantidad_carrito, id_usuario, id_producto)
+            cursor.execute(consulta_insert, datos)
+            conexion.commit()
+            print("Producto agregado al carrito exitosamente. ")
+        
+   
     except Exception as e: 
         print("Error al agregar producto al carrito:", e)
     finally:
@@ -112,10 +139,27 @@ def mostrar_carrito_por_usuario(id_usuario):
 
 
 # -- ACTUALIZAR CARRITO -- 
-def actualizar_cantidad_carrito():
-    print("--ACTUALIZAR CATIDAD DEL CARRITO --")
-    id_carrito = input("Ingrese el ID del carrito: ")
-    nueva_cantidad = input("Ingrese la nueva cantidad: ")
+def actualizar_cantidad_carrito(nueva_cantidad, id_carrito):
+    
+     # Validacion de que no hayan espacios vacios 
+    if not (nueva_cantidad and id_carrito ):
+        print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+        return
+    
+    # Validacion de id numerico 
+    if not nueva_cantidad.isdigit():
+        print("X Error la cantidad debe ser valor numerico") 
+        return
+
+    # Validacion de cantidad de carrito 
+    if not id_carrito.isdigit():
+        print("X Error el Id debe ser valor numerico")
+        return
+    
+    # Validacion de cantidad de carrito no sea cero
+    if int(nueva_cantidad) == 0:
+        print("X Error la cantidad debe ser mayor a cero")
+        return
     
     conexion = conectar()
     if not conexion:
@@ -141,9 +185,9 @@ def actualizar_cantidad_carrito():
         conexion.close()
 
 # -- ELIMINAR PRODUCTOS DEL CARRITO --
-def eliminar_producto_carrito():
+def eliminar_producto_carrito(id_carrito):
    
-    id_carrito = input("Digite el ID del carrito a eliminar: ")
+    
     
     # Validacion de que no hayan espacios vacios 
     if not (id_carrito ):
@@ -198,7 +242,7 @@ def vaciar_carrito_usuario(id_usuario):
         
 
 # -- CONFIRMAR COMPRA  --
-def confirmar_compra(id_usuario=None):
+def confirmar_compra(id_usuario):
     print("-- COMFIRMAR COMPRA --")
     if not id_usuario:
         id_usuario = input("Ingrese el ID del usuario:")
