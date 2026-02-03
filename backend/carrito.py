@@ -243,12 +243,15 @@ def vaciar_carrito_usuario(id_usuario):
 
 # -- CONFIRMAR COMPRA  --
 def confirmar_compra(id_usuario):
-    print("-- COMFIRMAR COMPRA --")
+   
     if not id_usuario:
         id_usuario = input("Ingrese el ID del usuario:")
     
     
-    metodo_pago = input("Metodo de Pago (Tarjeta / Efectivo  / Nequi / etc .): ")
+    metodo_pago = input("Metodo de Pago (Tarjeta / Efectivo  / PSE / ): ")
+    
+    
+    
     
     conexion = conectar()
     if not conexion:
@@ -256,6 +259,43 @@ def confirmar_compra(id_usuario):
         return
     try:
         cursor = conexion.cursor()
+        
+        # 1. Obtener productos pendientes del carrito
+        consulta_carrito = """
+        SELECT id_producto, cantidad_carrito FROM carrito WHERE id_usuario = %s AND metodo_pago_carrito = 'pendiente'
+        """
+        cursor.execute(consulta_carrito, (id_usuario,))
+        productos = cursor.fetchall()
+        
+        if not productos:
+            print("No hay productos pendientes en el carrito")
+            return
+        
+        # 2. Verificar stock y descontarlo
+        for producto in productos:
+            id_producto = producto[0]
+            cantidad_carrito = int(producto[1])
+            
+            # Obtener stock actual
+            cursor.execute("SELECT stock_producto FROM producto WHERE id_producto = %s",(id_producto)) 
+            
+            resultado = cursor.fetchone()
+            
+            if not resultado:
+                print(f"Producto con ID {id_producto} no existe")
+                return
+            
+            stock_actual = int(resultado[0])
+            
+            if cantidad_carrito > stock_actual:
+                print(f"No hay suficiente stock paa el producto {id_producto}")
+                return
+            
+            # Descontar el stock
+            nuevo_stock = stock_actual - cantidad_carrito
+            cursor.execute("UPDATE producto SET stock_producto = %s WHERE id_producto = %s", (nuevo_stock, id_producto))
+            
+        # 3. Confirmar compra
         consulta = """ 
         UPDATE carrito 
         SET metodo_pago_carrito = %s

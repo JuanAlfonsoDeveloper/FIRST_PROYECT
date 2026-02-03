@@ -304,7 +304,8 @@ def menu_principal():
     while True:
         print("\n --- MENU  PRINCIPAL ---")
         print("1. Login: ")
-        print("2. Salir: ")
+        print("2. Crear cuenta")
+        print("3. Salir: ")
 
         opcion = input("Elige una opcion: ")
         
@@ -315,6 +316,16 @@ def menu_principal():
             if usuario: 
                 mostrar_menu_por_rol(usuario)
         elif opcion == "2":
+            print("\n--- REGISTRAR USUARIOS ---")
+            nombre = input("Digite su nombre: ").strip()
+            apellido = input("Digite su apellido: ").strip()
+            correo = input("Digite su correo: ").strip()
+            telefono = input("Digite su telefono: ").strip()
+            contraseña = input("Digite su contraseña: ").strip()
+            direccion = input("Digite su direccion: ").strip()
+            id_rol_nuevo = 3
+            registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo)
+        elif opcion == "3":
             break
         else: 
             print("Opcion no valida. ")

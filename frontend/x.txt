@@ -17,4 +17,4 @@ MODIFICAR SU CUENTA --
 EN EL MENU DEBE IR CREAR CUENTA PERO QUE AUTOMATICCAMENTE LE DIGA QUE ES PARA CLIENTE 
 
 
-**** Se arreglaron los ultimas validaciones y toca mirar funciones del descontar el stock y el crear cuenta
+**** Se termino la funcion crear cuenta. Siguiente paso es empezar al react
