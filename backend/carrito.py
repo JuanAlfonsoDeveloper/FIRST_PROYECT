@@ -24,12 +24,26 @@ def agregar_al_carrito(id_usuario, id_producto, cantidad_carrito):
         return
     
 
+    
+
     conexion = conectar()
     if not conexion:
         print("Error al conectar con la base de datos")
         return
     
     try:
+        
+        # Validar si el carrito ya se confirmo
+        consulta_estado = """
+        SELECT 1 FROM carrito WHERE id_usuario = %s AND metodo_pago_carrito != 'pendiente'
+        """
+        cursor.execute(consulta_estado, (id_usuario,))
+        carrito_cerrado = cursor.fetchone()
+        
+        if carrito_cerrado:
+            print("No puedes agregar productos. El carrito ya fue confirmado.")
+            return
+        
         cantidad_carrito = int(cantidad_carrito)
         cursor = conexion.cursor()
         # 1. Verificar stock disponible del producto
@@ -167,6 +181,22 @@ def actualizar_cantidad_carrito(nueva_cantidad, id_carrito):
         return
     try:
         cursor = conexion.cursor()
+        
+        consulta_estado = """
+        SELECT metodo_pago_carrito FROM carrito WHERE id_carrito = %s 
+        """
+        
+        cursor.execute(consulta_estado, (id_carrito,))
+        estado = cursor.fetchone()
+        
+        if not estado:
+            print("El carrito no existe ")
+            return
+        
+        if estado[0] != "pendiente":
+            print("No se puede modificar un carrito ya confirmado")
+            return
+        
         consulta = """
         UPDATE carrito 
         SET cantidad_carrito = %s
@@ -206,6 +236,22 @@ def eliminar_producto_carrito(id_carrito):
         return
     try: 
         cursor = conexion.cursor()
+        
+        consulta_estado = """
+        SELECT metod_pago_carrito FROM carrito WHERE id_carrito = %s
+        """
+        
+        cursor.execute(consulta_estado, (id_carrito,))
+        estado = cursor.fetchone()
+        
+        if not estado:
+            print("No existe ese producto en el carrito")
+            return
+        
+        if estado[0] != "pendiente":
+            print("No se puede eliminar productos de un carrito confirmado")
+            return
+        
         consulta = """ DELETE FROM carrito WHERE id_carrito = %s """
         cursor.execute(consulta,(id_carrito,))
         conexion.commit()
@@ -241,73 +287,83 @@ def vaciar_carrito_usuario(id_usuario):
         conexion.close()
         
 
-# -- CONFIRMAR COMPRA  --
+# -- CONFIRMAR COMPRA --
 def confirmar_compra(id_usuario):
-   
+
     if not id_usuario:
-        id_usuario = input("Ingrese el ID del usuario:")
-    
-    
-    metodo_pago = input("Metodo de Pago (Tarjeta / Efectivo  / PSE / ): ")
-    
-    
-    
-    
+        id_usuario = input("Ingrese el ID del usuario: ")
+
+    metodo_pago = input("Metodo de Pago (Tarjeta / Efectivo / PSE): ")
+    if not metodo_pago:
+        print("X Error: debe ingresar el método de pago")
+        return
+
     conexion = conectar()
     if not conexion:
-        print("Error al conectar con la base de datos ")
+        print("Error al conectar con la base de datos")
         return
+
     try:
         cursor = conexion.cursor()
+
+        cursor.execute("""
+        SELECT 1 FROM carrito WHERE id_usuario = %s AND metodo_pago_carrito != 'pendiente'
+        """, (id_usuario,))
+        
+        if cursor.fetchone():
+            print("Este carrito ya fue confirmado")
+            return
         
         # 1. Obtener productos pendientes del carrito
         consulta_carrito = """
-        SELECT id_producto, cantidad_carrito FROM carrito WHERE id_usuario = %s AND metodo_pago_carrito = 'pendiente'
+        SELECT id_producto, cantidad_carrito
+        FROM carrito
+        WHERE id_usuario = %s AND metodo_pago_carrito = 'pendiente'
         """
         cursor.execute(consulta_carrito, (id_usuario,))
         productos = cursor.fetchall()
-        
+
         if not productos:
-            print("No hay productos pendientes en el carrito")
+            print("No hay productos pendientes para confirmar.")
             return
-        
+
         # 2. Verificar stock y descontarlo
-        for producto in productos:
-            id_producto = producto[0]
-            cantidad_carrito = int(producto[1])
-            
-            # Obtener stock actual
-            cursor.execute("SELECT stock_producto FROM producto WHERE id_producto = %s",(id_producto)) 
-            
+        for id_producto, cantidad in productos:
+            cursor.execute(
+                "SELECT stock_producto FROM producto WHERE id_producto = %s",
+                (id_producto,)
+            )
             resultado = cursor.fetchone()
-            
+
             if not resultado:
-                print(f"Producto con ID {id_producto} no existe")
+                print(f"El producto con ID {id_producto} no existe.")
                 return
-            
+
             stock_actual = int(resultado[0])
-            
-            if cantidad_carrito > stock_actual:
-                print(f"No hay suficiente stock paa el producto {id_producto}")
+
+            if cantidad > stock_actual:
+                print(f"No hay suficiente stock para el producto ID {id_producto}")
                 return
-            
-            # Descontar el stock
-            nuevo_stock = stock_actual - cantidad_carrito
-            cursor.execute("UPDATE producto SET stock_producto = %s WHERE id_producto = %s", (nuevo_stock, id_producto))
-            
-        # 3. Confirmar compra
-        consulta = """ 
-        UPDATE carrito 
+
+            nuevo_stock = stock_actual - cantidad
+            cursor.execute(
+                "UPDATE producto SET stock_producto = %s WHERE id_producto = %s",
+                (nuevo_stock, id_producto)
+            )
+
+        # 3. Confirmar compra (cerrar carrito)
+        consulta_confirmar = """
+        UPDATE carrito
         SET metodo_pago_carrito = %s
         WHERE id_usuario = %s AND metodo_pago_carrito = 'pendiente'
         """
-        cursor.execute(consulta,(metodo_pago, id_usuario, ))
+        cursor.execute(consulta_confirmar, (metodo_pago, id_usuario))
         conexion.commit()
-        if cursor.rowcount > 0:
-                print(f"Compra confirmada con metodo de pago:  {metodo_pago} ")
-        else:
-            print("No hay productos pendientes en el carrito para confirmar")
+
+        print(f"Compra confirmada correctamente con método de pago: {metodo_pago}")
+
     except Exception as e:
-        print("Error al confirmar la compra ", e)
+        print("Error al confirmar la compra:", e)
+
     finally:
         conexion.close()
