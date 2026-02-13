@@ -1,0 +1,15 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Frontend
+frontend/node_modules/
+
+# Python
+__pychache__/
+*.pvc
+
+# Environment variables
+.env
+
+# Mac / Windows basura
+.DS_Store
+Thumbs.db
