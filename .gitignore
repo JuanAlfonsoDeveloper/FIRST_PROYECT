@@ -4,7 +4,7 @@
 frontend/node_modules/
 
 # Python
-__pychache__/
+__pycache__/
 *.pvc
 
 # Environment variables

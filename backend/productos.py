@@ -54,25 +54,42 @@ def registrar_producto(titulo, precio_input, imagen, descripcion, stock, id_usua
 
 # -- OBTENER PRODUCTOS --
 def obtener_productos():
-    print("-- LISTADO DE PRODUCTOS DISPONIBLES --")
-
     conexion = conectar()
-    if not conexion:
-        return
+    cursor = conexion.cursor()
     
-    try:
-        cursor = conexion.cursor()
-        cursor.execute("SELECT * FROM producto")
-        productos = cursor.fetchall()
-        if productos:
-            for producto in productos:
-                print(producto)
-        else: 
-            print("No hay productos registrados. ")
-    except Exception as  e:
-        print("Error al obtener productos:", e)
-    finally: 
-        conexion.close()
+    cursor.execute("SELECT id_producto, nombre_producto, precio_producto FROM producto")
+    resultados = cursor.fetchall()
+    
+    productos = []
+    
+    for fila in resultados:
+        productos.append({
+            "id": fila[0],
+            "nombre": fila[1],
+            "precio": float(fila[2])
+        })
+    conexion.close()
+    return productos
+    
+    # print("-- LISTADO DE PRODUCTOS DISPONIBLES --")
+
+    # conexion = conectar()
+    # if not conexion:
+    #     return
+    
+    # try:
+    #     cursor = conexion.cursor()
+    #     cursor.execute("SELECT * FROM producto")
+    #     productos = cursor.fetchall()
+    #     if productos:
+    #         for producto in productos:
+    #             print(producto)
+    #     else: 
+    #         print("No hay productos registrados. ")
+    # except Exception as  e:
+    #     print("Error al obtener productos:", e)
+    # finally: 
+    #     conexion.close()
 
 # -- BUSCADOR DE PRODUCTOS --
 def buscar_producto_por_nombre(nombre):

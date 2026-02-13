@@ -1,3 +1,7 @@
+# Flask
+from flask import Flask
+from flask_cors import CORS
+
 from usuarios import (
     registrar_usuario,
     obtener_usuario,
@@ -27,6 +31,16 @@ from carrito import(
     confirmar_compra
 )
 
+app = Flask(__name__)
+CORS(app)
+
+@app.route("/")
+def inicio():
+    return {"mensaje": "Backend funcionando correctamente"}
+
+@app.route("/productos")
+def listar_productos():
+    return obtener_productos()
 
 # -------------------------- MENU ROLES --------------------------
 
@@ -331,8 +345,7 @@ def menu_principal():
             print("Opcion no valida. ")
             
 if __name__ == "__main__":
-    menu_principal()
-    
+    app.run(debug=True, port=5000)
 
 
 
