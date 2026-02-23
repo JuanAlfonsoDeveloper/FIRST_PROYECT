@@ -57,7 +57,7 @@ def obtener_productos():
     conexion = conectar()
     cursor = conexion.cursor()
     
-    cursor.execute("SELECT id_producto, nombre_producto, precio_producto FROM producto")
+    cursor.execute("SELECT * FROM producto")
     resultados = cursor.fetchall()
     
     productos = []

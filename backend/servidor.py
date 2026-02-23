@@ -34,13 +34,10 @@ from carrito import(
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/")
-def inicio():
+@app.route("/productos")
+def productos():
     return {"mensaje": "Backend funcionando correctamente"}
 
-@app.route("/productos")
-def listar_productos():
-    return obtener_productos()
 
 # -------------------------- MENU ROLES --------------------------
 
