@@ -1,6 +1,7 @@
 # Flask
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
+from db import conectar
 
 from usuarios import (
     registrar_usuario,
@@ -36,7 +37,13 @@ CORS(app)
 
 @app.route("/productos")
 def productos():
-    return {"mensaje": "Backend funcionando correctamente"}
+    conexion = conectar()
+    cursor = conexion.cursor()
+    
+    cursor.execute("SELECT * FROM PRODUCTO")
+    productos = cursor.fetchall()
+    
+    return jsonify(productos)
 
 
 # -------------------------- MENU ROLES --------------------------
