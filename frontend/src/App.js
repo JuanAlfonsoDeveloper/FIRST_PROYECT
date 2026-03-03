@@ -16,7 +16,7 @@ function App() {
   return (
     <div>
       <h1>Mi proyecto</h1>
-      <h2>{JSON.stringify(productos)}</h2>
+      
       <ul>
         {productos.map(producto => (
           <li key={producto.id}>

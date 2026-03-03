@@ -1,6 +1,7 @@
 # Flask
 from flask import Flask, jsonify
 from flask_cors import CORS
+from flask import request
 from db import conectar
 
 from usuarios import (
@@ -35,15 +36,20 @@ from carrito import(
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/productos")
-def productos():
-    conexion = conectar()
-    cursor = conexion.cursor()
+@app.route("/registro" , methods=["GET","POST"])
+def registro():
+    data = request.json
     
-    cursor.execute("SELECT * FROM PRODUCTO")
-    productos = cursor.fetchall()
-    
-    return jsonify(productos)
+    resultado = registrar_usuario(
+        data["nombre"],
+        data["apellido"],
+        data["correo"],
+        data["telefono"],
+        data["password"],
+        data["direccion"],
+        
+    )
+    return jsonify(resultado) 
 
 
 # -------------------------- MENU ROLES --------------------------

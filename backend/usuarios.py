@@ -70,31 +70,28 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
     print("Registrar Usuario")
     conexion = conectar()
     if not conexion:
-        return
+        return {"Error": "Error de conexion a la base de datos"}
     
     try:
         cursor = conexion.cursor()
         
         if not (nombre and apellido and correo and telefono and contraseña and direccion and id_rol_nuevo):
-            print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
+            return {"X ERROR": "Todos los campos son obligatorios. Intente nuevamente"}
         else: 
             # Validacion de que el telefono sea numerico 
             if not telefono.isdigit():
-                print("X Error El telefono del usuario debe ser numerico")
-                return
+                return {"Error": "El telefono del usuario debe ser numerico"}
 
             # --- VALIDACION DE DUPLICADOS ---
             cursor.execute(
                 "SELECT id_usuario FROM usuario WHERE correo_usuario = %s",(correo,))
             if cursor.fetchone():
-                print("X Error: El correo ya esta registrado. ")
-                return
+                return {"Error": "El correo ya esta registrado. "}
             
             cursor.execute(
                 "SELECT id_usuario FROM usuario WHERE telefono_usuario = %s",(telefono,))
             if cursor.fetchone():
-                print("X Error: El telefono ya esta registrado. ")
-                return
+                return {"Error": "El telefono ya esta registrado. "}
             
             consulta = """
             INSERT INTO usuario ( 
@@ -107,7 +104,7 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
             datos = (nombre, apellido, correo, telefono, contraseña_cifrada, direccion, id_rol_nuevo)
             cursor.execute(consulta, datos)
             conexion.commit()
-            print("Usuario registrado correctamente")
+            return {"Mensaje": "Usuario registrado correctamente"}
     except Exception as e:
         print("Error al registrar usuario:", e)
     finally:
