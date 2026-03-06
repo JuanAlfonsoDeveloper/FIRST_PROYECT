@@ -38,18 +38,10 @@ CORS(app)
 
 @app.route("/registro" , methods=["GET","POST"])
 def registro():
-    data = request.json
+    data = request.get_json
+    nombre = data["nombre"]
     
-    resultado = registrar_usuario(
-        data["nombre"],
-        data["apellido"],
-        data["correo"],
-        data["telefono"],
-        data["password"],
-        data["direccion"],
-        
-    )
-    return jsonify(resultado) 
+return jsonify(resultado) 
 
 
 # -------------------------- MENU ROLES --------------------------

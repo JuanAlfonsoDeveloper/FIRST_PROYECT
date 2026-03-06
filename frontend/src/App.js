@@ -1,31 +1,37 @@
-import { useEffect, useState } from "react";
+import Registro from "./pages/registro"
 
 function App() {
-  const [productos, setProductos] = useState([]);
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/productos")
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        setProductos(data);
-      })
-      .catch(error => console.error("Error:", error));
-  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const datos = {
+      nombre: nombre,
+      apellido: apellido,
+      correo: correo,
+      telefono: telefono,
+      contraseña: contraseña,
+      direccion: direccion
+    };
 
+    const respuesta = await
+  fetch("http://127.0.0.1:5000/registro", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(datos)
+  });
+
+  const data = await respuesta.json();
+
+  console.log(data);
+
+  };
   return (
     <div>
-      <h1>Mi proyecto</h1>
-      
-      <ul>
-        {productos.map(producto => (
-          <li key={producto.id}>
-            {producto.nombre} - ${producto.precio}
-          </li>
-        ))}
-      </ul>
+      < Registro />
     </div>
-  );
+  )
 }
 
 export default App;
