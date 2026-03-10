@@ -34,14 +34,40 @@ from carrito import(
 )
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @app.route("/registro" , methods=["GET","POST"])
 def registro():
-    data = request.get_json
-    nombre = data["nombre"]
     
-return jsonify(resultado) 
+    try:
+        datos = request.get_json()
+        
+        nombre = datos.get("nombre")
+        apellido = datos.get("apellido")
+        correo = datos.get("correo")
+        telefono = datos.get("telefono")
+        contraseña = datos.get("contraseña")
+        direccion = datos.get("direccion")
+        
+        id_rol = 3
+        
+        registrar_usuario(
+            nombre,
+            apellido,
+            correo,
+            telefono,
+            contraseña,
+            direccion,
+            id_rol
+        )
+        
+        return jsonify({"mensaje: Usuario registrado correctamente"})
+    
+    except Exception as e:
+        print(f"ERROR INTERNO: {e}") 
+       
+        return jsonify({"error": str(e)}), 500
 
 
 # -------------------------- MENU ROLES --------------------------
