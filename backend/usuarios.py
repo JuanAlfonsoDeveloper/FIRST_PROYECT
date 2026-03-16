@@ -79,6 +79,7 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
             return {"X ERROR": "Todos los campos son obligatorios. Intente nuevamente"}
         else: 
             # Validacion de que el telefono sea numerico 
+            telefono = str(telefono)
             if not telefono.isdigit():
                 return {"Error": "El telefono del usuario debe ser numerico"}
 
@@ -104,9 +105,11 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
             datos = (nombre, apellido, correo, telefono, contraseña_cifrada, direccion, id_rol_nuevo)
             cursor.execute(consulta, datos)
             conexion.commit()
+            print(f"DEBUG: Commit realizado. Filas afectadas: {cursor.rowcount}") # Añade esto
+            return {"Mensaje": "Usuario registrado correctamente"}
             return {"Mensaje": "Usuario registrado correctamente"}
     except Exception as e:
-        print("Error al registrar usuario:", e)
+        return {"Error": f"Fallo en la DB: {str(e)}"}
     finally:
         conexion.close()
 

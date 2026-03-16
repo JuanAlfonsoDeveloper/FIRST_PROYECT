@@ -25,7 +25,7 @@ function Registro() {
     e.preventDefault(); // Evita que la página se recargue
 
     try {
-      const respuesta = await fetch("http://127.0.0.1:5000/registro", {
+      const respuesta = await fetch("http://localhost:5000/registro", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ function Registro() {
         <input name="apellido" placeholder="Apellido" onChange={handleChange} />
         <input name="correo" type="email" placeholder="Correo" onChange={handleChange} />
         <input name="telefono" placeholder="Teléfono" onChange={handleChange} />
-        <input name="password" type="password" placeholder="Contraseña" onChange={handleChange} />
+        <input name="contraseña" type="password" placeholder="Contraseña" onChange={handleChange} />
         <input name="direccion" placeholder="Dirección" onChange={handleChange} />
         
         <button type="submit">Enviar Registro</button>

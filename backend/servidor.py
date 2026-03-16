@@ -32,43 +32,90 @@ from carrito import(
     vaciar_carrito_usuario,
     confirmar_compra
 )
-
 app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-@app.route("/registro" , methods=["GET","POST"])
+@app.route("/registro", methods=["POST"])
 def registro():
-    
     try:
-        datos = request.get_json()
-        
+        # 1. Verificamos si llegan datos
+        datos = request.get_json(force=True)
+        if not datos:
+            return jsonify({"error": "No se recibieron datos"}), 400
+            
+        print("Datos que llegaron de React:", datos) # Esto saldrá en tu terminal
+
+        # 2. Extraemos los datos (asegúrate de que los nombres coincidan con React)
         nombre = datos.get("nombre")
         apellido = datos.get("apellido")
         correo = datos.get("correo")
         telefono = datos.get("telefono")
-        contraseña = datos.get("contraseña")
+        # OJO: Si en React pusiste "contraseña", aquí debe ser "contraseña"
+        password = datos.get("contraseña") 
         direccion = datos.get("direccion")
-        
         id_rol = 3
-        
-        registrar_usuario(
-            nombre,
-            apellido,
-            correo,
-            telefono,
-            contraseña,
-            direccion,
-            id_rol
+
+        # 3. Llamamos a la función (aquí es donde suele fallar si la DB no conecta)
+        resultado = registrar_usuario(
+            nombre, apellido, correo, telefono, password, direccion, id_rol
         )
         
-        return jsonify({"mensaje: Usuario registrado correctamente"})
-    
-    except Exception as e:
-        print(f"ERROR INTERNO: {e}") 
-       
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"mensaje": "¡Éxito!", "detalle": resultado}), 201
 
+    except Exception as e:
+        # ESTO ES LO MÁS IMPORTANTE:
+        # Imprime el error real en la terminal de VS Code
+        print("======= ERROR CRÍTICO EN EL BACKEND =======")
+        print(f"Tipo de error: {type(e).__name__}")
+        print(f"Mensaje: {e}")
+        print("===========================================")
+        return jsonify({"error": "Error interno", "mensaje_real": str(e)}), 500
+    
+# app = Flask(__name__)
+
+# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
+# @app.route("/registro" , methods=["POST"])
+# def registro():
+    
+#     try:
+        
+#         datos = request.get_json(force=True)
+#         print("Datos recibidos:", datos)
+        
+#         nombre = datos.get("nombre")
+#         apellido = datos.get("apellido")
+#         correo = datos.get("correo")
+#         telefono = datos.get("telefono")
+#         contraseña = datos.get("contraseña")
+#         direccion = datos.get("direccion")
+        
+#         id_rol = 3
+        
+#         resultado = registrar_usuario(
+#             nombre,
+#             apellido,
+#             correo,
+#             telefono,
+#             contraseña,
+#             direccion,
+#             id_rol
+#         )
+        
+#         # Si tu función registrar_usuario devuelve un dict con error:
+#         if "Error" in resultado:
+#             return jsonify(resultado), 400
+            
+#         return jsonify({"mensaje": "Usuario registrado correctamente"}), 201
+    
+#     except Exception as e:
+#         print("Error al registrar usuario:", e)
+#         return jsonify({"error": str(e)}), 500
+
+#     if __name__ == "__main__":
+#         app.run(debug=True, port=5000)
+    
 
 # -------------------------- MENU ROLES --------------------------
 
