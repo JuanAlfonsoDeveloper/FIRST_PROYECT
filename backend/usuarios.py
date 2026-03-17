@@ -204,7 +204,11 @@ def login_usuario(correo, contraseña):
         usuario = cursor.fetchone()
         if usuario:
             print(f"Login Exitoso. Bienvenido {usuario[1]}")
-            return usuario
+            return {
+                "id_usuario": usuario[0],
+                "nombre": usuario[1],
+                "id_rol": usuario[2]
+            }
         else: 
             print("correo o contraseña incorrectos")
     except Exception as e:
@@ -316,3 +320,4 @@ def eliminar_usuario(id_usuario):
         print("Error al eliminar el usuario:", e)
     finally:
         conexion.close()
+        

@@ -7,7 +7,7 @@ function Registro() {
     apellido: "",
     correo: "",
     telefono: "",
-    contraseña: "", // Cambiado de 'contraseña' para evitar errores de codificación
+    password: "", // Cambiado de 'contraseña' para evitar errores de codificación
     direccion: "",
   });
 
@@ -50,7 +50,7 @@ function Registro() {
         <input name="apellido" placeholder="Apellido" onChange={handleChange} />
         <input name="correo" type="email" placeholder="Correo" onChange={handleChange} />
         <input name="telefono" placeholder="Teléfono" onChange={handleChange} />
-        <input name="contraseña" type="password" placeholder="Contraseña" onChange={handleChange} />
+        <input name="password" type="password" placeholder="Contraseña" onChange={handleChange} />
         <input name="direccion" placeholder="Dirección" onChange={handleChange} />
         
         <button type="submit">Enviar Registro</button>
