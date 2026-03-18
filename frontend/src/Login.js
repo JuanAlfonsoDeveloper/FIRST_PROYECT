@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-function Login(){
+function Login({ alLoguear }){
     const[form, setForm] = useState({
         correo: "",
         password: "",
     });
-
+  
     // Función para capturar lo que el usuario escribe
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,18 +31,19 @@ function Login(){
 
       const data = await respuesta.json();
       if (respuesta.ok) {
-        console.log("Datos del usuario logueado", data.usuario)
-        alert(`Bienvenido de nuevo, ${data.usuario.nombre}`);
-      }else{
-        // Aquí manejas el error 401 o 400
-        alert(data.error || "Error al iniciar sesión");
-      }
+        // Guardamos los datos en el navegador
+        localStorage.setItem("usuario", JSON.stringify(data.usuario));
+        
+        // ¡ESTO ES LO NUEVO! 
+        // Avisamos a App.js que ya tenemos usuario para que cambie la pantalla
+        alLoguear(data.usuario); 
 
+        alert(`Bienvenido de nuevo, ${data.usuario.nombre}`);
+    }
     } catch (error) { 
         console.error("Error de red:", error);
         alert("No se pudo conectar con el servidor");
-        }
-
+    }
   };
 
   return (

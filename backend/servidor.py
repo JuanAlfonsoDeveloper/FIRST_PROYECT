@@ -43,9 +43,7 @@ def registro():
         datos = request.get_json(force=True)
         if not datos:
             return jsonify({"error": "No se recibieron datos"}), 400
-            
-       
-
+        
         # 2. Extraemos los datos (asegúrate de que los nombres coincidan con React)
         nombre = datos.get("nombre")
         apellido = datos.get("apellido")
@@ -64,14 +62,12 @@ def registro():
         return jsonify({"mensaje": "¡Éxito!", "detalle": resultado}), 201
 
     except Exception as e:
-        # ESTO ES LO MÁS IMPORTANTE:
-        # Imprime el error real en la terminal de VS Code
-        print("======= ERROR CRÍTICO EN EL BACKEND =======")
-        print(f"Tipo de error: {type(e).__name__}")
-        print(f"Mensaje: {e}")
-        print("===========================================")
-        return jsonify({"error": "Error interno", "mensaje_real": str(e)}), 500
+        print("ALERTA: Ocurrió un error en el login:")
+        print(e) # Esto DEBE salir en tu terminal negra de VS Code
+    return jsonify({"error": str(e)}), 500
     
+# LOGIN DE USUARIO 
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -84,11 +80,11 @@ def login():
 
         # 2. Extraemos los datos (asegúrate de que los nombres coincidan con React)
         correo = datos.get("correo")
-        contraseña = datos.get("password") 
+        password = datos.get("password") 
     
 
         # 3. Llamamos a la función (aquí es donde suele fallar si la DB no conecta)
-        usuario_valido = login_usuario(correo, contraseña)
+        usuario_valido = login_usuario(correo, password)
         
         # 4. Evaluamos el resultado
         
@@ -141,10 +137,10 @@ def mostrar_menu_por_rol(usuario):
                 apellido = input("Digite su apellido: ").strip()
                 correo = input("Digite su correo: ").strip()
                 telefono = input("Digite su telefono: ").strip()
-                contraseña = input("Digite su contraseña: ").strip()
+                password = input("Digite su contraseña: ").strip()
                 direccion = input("Digite su direccion: ").strip()
                 id_rol_nuevo = input("Digite su codigo del rol: ").strip()
-                registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo)
+                registrar_usuario(nombre, apellido, correo, telefono, password, direccion, id_rol_nuevo)
                     
             
             # Opcion 2. Mostrar todos los usuarios:
@@ -174,9 +170,9 @@ def mostrar_menu_por_rol(usuario):
                 apellido = input("Nuevo apellido: ").strip()
                 correo = input("Nuevo correo: ").strip()
                 telefono = input("Nuevo telefono: ").strip()
-                contraseña = input("Nueva contraseña ").strip()
+                password = input("Nueva contraseña ").strip()
                 direccion = input("Nueva direccion: ").strip()  
-                actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
+                actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, password, direccion,)
             
             # Opcion 6. Eliminar usuario:
             elif opcion == "6":
@@ -346,9 +342,9 @@ def mostrar_menu_por_rol(usuario):
                 apellido = input("Nuevo apellido: ").strip()
                 correo = input("Nuevo correo: ").strip()
                 telefono = input("Nuevo telefono: ").strip()
-                contraseña = input("Nueva contraseña ").strip()
+                password = input("Nueva contraseña ").strip()
                 direccion = input("Nueva direccion: ").strip()  
-                actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion,)
+                actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, password, direccion,)
                 
             # Opcion 6. Eliminar productos del carrito
             elif opcion == "6":
@@ -395,8 +391,8 @@ def menu_principal():
         
         if opcion == "1":
             correo = input("Correo: ")
-            contraseña = input("Contraseña: ")
-            usuario = login_usuario(correo, contraseña)
+            password = input("Contraseña: ")
+            usuario = login_usuario(correo, password)
             if usuario: 
                 mostrar_menu_por_rol(usuario)
         elif opcion == "2":
@@ -405,10 +401,10 @@ def menu_principal():
             apellido = input("Digite su apellido: ").strip()
             correo = input("Digite su correo: ").strip()
             telefono = input("Digite su telefono: ").strip()
-            contraseña = input("Digite su contraseña: ").strip()
+            password = input("Digite su contraseña: ").strip()
             direccion = input("Digite su direccion: ").strip()
             id_rol_nuevo = 3
-            registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo)
+            registrar_usuario(nombre, apellido, correo, telefono, password, direccion, id_rol_nuevo)
         elif opcion == "3":
             break
         else: 

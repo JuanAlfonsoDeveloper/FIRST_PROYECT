@@ -66,7 +66,7 @@ def cambiar_rol_usuario(id_usuario_cambiar, nuevo_rol):
         
 #-- REGISTRAR USURIO --
 
-def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion, id_rol_nuevo):
+def registrar_usuario(nombre, apellido, correo, telefono, password, direccion, id_rol_nuevo):
     print("Registrar Usuario")
     conexion = conectar()
     if not conexion:
@@ -75,7 +75,7 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
     try:
         cursor = conexion.cursor()
         
-        if not (nombre and apellido and correo and telefono and contraseña and direccion and id_rol_nuevo):
+        if not (nombre and apellido and correo and telefono and password and direccion and id_rol_nuevo):
             return {"X ERROR": "Todos los campos son obligatorios. Intente nuevamente"}
         else: 
             # Validacion de que el telefono sea numerico 
@@ -101,8 +101,8 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
             ) VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
 
-            contraseña_cifrada = cifrar_contraseña(contraseña)
-            datos = (nombre, apellido, correo, telefono, contraseña_cifrada, direccion, id_rol_nuevo)
+            password_cifrada = cifrar_password(password)
+            datos = (nombre, apellido, correo, telefono, password_cifrada, direccion, id_rol_nuevo)
             cursor.execute(consulta, datos)
             conexion.commit()
             print(f"DEBUG: Commit realizado. Filas afectadas: {cursor.rowcount}") # Añade esto
@@ -113,9 +113,9 @@ def registrar_usuario(nombre, apellido, correo, telefono, contraseña, direccion
     finally:
         conexion.close()
 
-def cifrar_contraseña(contraseña):
+def cifrar_password(password):
     sha256 = hashlib.sha256()
-    sha256.update(contraseña.encode("utf-8"))
+    sha256.update(password.encode("utf-8"))
     return sha256.hexdigest()
 
 
@@ -188,7 +188,7 @@ def obtener_usuario_por_telefono(telefono):
 #-- VALIDAR LOGIN --
 import hashlib
 
-def login_usuario(correo, contraseña):
+def login_usuario(correo, password):
     conexion = conectar()
     if not conexion:
         return
@@ -199,8 +199,8 @@ def login_usuario(correo, contraseña):
         WHERE  correo_usuario = %s AND contraseña_usuario = %s 
         
         """
-        contraseña_cifrada = hashlib.sha256(contraseña.encode()).hexdigest()
-        cursor.execute(consulta, (correo, contraseña_cifrada))
+        password_cifrada = hashlib.sha256(password.encode()).hexdigest()
+        cursor.execute(consulta, (correo, password_cifrada))
         usuario = cursor.fetchone()
         if usuario:
             print(f"Login Exitoso. Bienvenido {usuario[1]}")
@@ -210,21 +210,21 @@ def login_usuario(correo, contraseña):
                 "id_rol": usuario[2]
             }
         else: 
-            print("correo o contraseña incorrectos")
+            print("correo o password incorrectos")
     except Exception as e:
         print("Error al hacer login:", e)
     finally: 
         conexion.close()
         
 #-- ACTUALIZAR DATOS DE UN USUARIO --
-def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contraseña, direccion ):
+def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, password, direccion ):
     conexion = conectar()
     if not conexion: 
         print("Error a conectar a la base de datos.")
         return
     try:
         # Validacion de que los cfampos no esten vacios 
-        if not (id_usuario and nombre and apellido and correo and telefono and contraseña and  direccion  ):
+        if not (id_usuario and nombre and apellido and correo and telefono and password and  direccion  ):
             print("X ERROR: Todos los campos son obligatorios. Intente nuevamente")
             return
                 
@@ -255,13 +255,13 @@ def actualizar_usuario(id_usuario, nombre, apellido, correo, telefono, contrase�
             print("X Error: El telefono ya esta registrado. ")
             return
     
-        cifrar_contraseña = hashlib.sha256(contraseña.encode()).hexdigest()
+        cifrar_password = hashlib.sha256(password.encode()).hexdigest()
         consulta = """
         UPDATE usuario SET nombre_usuario=%s, apellido_usuario=%s,
         correo_usuario=%s, contraseña_usuario=%s, telefono_usuario=%s, direccion_usuario=%s
         WHERE id_usuario=%s
         """
-        datos = (nombre, apellido, correo, cifrar_contraseña, telefono,  direccion,  id_usuario)
+        datos = (nombre, apellido, correo, cifrar_password, telefono,  direccion,  id_usuario)
         cursor.execute(consulta, datos)
         conexion.commit()
         print("Usuario actualizado correctamente")
