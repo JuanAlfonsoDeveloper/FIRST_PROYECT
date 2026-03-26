@@ -3,4 +3,4 @@ react = localhost3000
 []
 
 
---  REALIZADA LA FUNCION LOGIN 
+--  Se esta intentando mostrar productos pero salio error 

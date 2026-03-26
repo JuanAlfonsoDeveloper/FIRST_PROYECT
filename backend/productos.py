@@ -66,7 +66,11 @@ def obtener_productos():
         productos.append({
             "id": fila[0],
             "nombre": fila[1],
-            "precio": float(fila[2])
+            "precio": float(fila[2]),
+            "imagen": fila[3],
+            "descripcion": fila[4],
+            "stock": fila[5]
+            
         })
     conexion.close()
     return productos

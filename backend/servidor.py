@@ -36,6 +36,8 @@ app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
+
+# APP ROUTE DE REGISTRO
 @app.route("/registro", methods=["POST"])
 def registro():
     try:
@@ -66,8 +68,9 @@ def registro():
         print(e) # Esto DEBE salir en tu terminal negra de VS Code
     return jsonify({"error": str(e)}), 500
     
+    
+    
 # LOGIN DE USUARIO 
-
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -106,6 +109,15 @@ def login():
         print(f"Mensaje: {e}")
         print("===========================================")
         return jsonify({"error": "Error interno", "mensaje_real": str(e)}), 500
+    
+# APP ROUTE DE PRODUCTOS
+@app.route("/productos",methods=["GET"])
+def listar_productos():
+    try: 
+        lista = obtener_productos()
+        return jsonify(lista), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
     
     
 # -------------------------- MENU ROLES --------------------------

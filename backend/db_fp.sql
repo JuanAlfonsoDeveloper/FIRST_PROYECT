@@ -52,6 +52,13 @@ CREATE TABLE CARRITO(
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
 );
+
+-- Inserccion de datos del rol
 INSERT INTO `rol`VALUES (1,'cliente');
 INSERT INTO `rol`VALUES (2,'empleado');
 INSERT INTO `rol`VALUES (3,'cliente');
+
+
+-- Inserccion de productos 
+INSERT INTO `producto` VALUES (1,'Pesas','10000','url','Texto','59',1);
+INSERT INTO `producto` VALUES (2,'Saco de Box','50000','url','Texto','100',2);
