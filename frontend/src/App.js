@@ -1,5 +1,5 @@
 
-import Registro from './Registro'; // Importas el que ya tenías
+import Catalogo from './Catalago';
 import React, { useState, useEffect } from 'react';
 import Login from './Login';
 
@@ -17,22 +17,22 @@ function App() {
 
   const finalizarLogin = (datosUsuario) => {
     setUsuarioActivo(datosUsuario);
+    localStorage.setItem("user", JSON.stringify(datosUsuario));
 };
 
   return (
-   <div style={{ padding: "20px" }}>
-      {usuarioActivo ? (
-        <div>
-          <h2>¡Hola de nuevo, {usuarioActivo.nombre}! 👋</h2>
-          <button onClick={() => {
-            localStorage.removeItem("usuario"); // Borramos la sesión
-            setUsuarioActivo(null); // Actualizamos la pantalla
-          }}>
-            Cerrar Sesión
-          </button>
-        </div>
+   <div className="App">
+      {/* 3. La Lógica del Portero: */}
+      { !usuarioActivo ? (
+          // Si NO hay usuario, muestra el Login y pásale la función
+          <Login alLoguear={finalizarLogin} />
       ) : (
-        <Login alLoguear={finalizarLogin} />
+          // Si HAY usuario, muestra el Catálogo y un saludo
+          <div>
+            <h1>¡Hola, {usuarioActivo.nombre}!</h1>
+            <button onClick={() => setUsuarioActivo(null)}>Cerrar Sesión</button>
+            <Catalogo />
+          </div>
       )}
     </div>
   );

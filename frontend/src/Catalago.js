@@ -1,14 +1,14 @@
 import React, {useState, useEffect } from "react";
 import Login from "./Login";
 
-function App() {
-    const [usuarioActivo, setUsuarioActivo] = useState(null);
+function Catalogo() {
+    const [usuarioActivo, setUsuario] = useState(null);
 
     useEffect(() => {
         const usuarioGuardado = localStorage.getItem("usuario");
 
         if (usuarioGuardado) {
-            setUsuarioActivo(JSON.parse(usuarioGuardado));
+            setUsuario(JSON.parse(usuarioGuardado));
         }
     }, []);
     return (
@@ -34,4 +34,4 @@ function App() {
   );
 }
 
-export default App;
+export default Catalogo;

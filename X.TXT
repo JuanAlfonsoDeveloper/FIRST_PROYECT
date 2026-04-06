@@ -3,4 +3,4 @@ react = localhost3000
 []
 
 
---  Se esta intentando mostrar productos pero salio error 
+--  Se muestra como tal lo de los productos pero faltan mostrar los productos

@@ -54,26 +54,29 @@ def registrar_producto(titulo, precio_input, imagen, descripcion, stock, id_usua
 
 # -- OBTENER PRODUCTOS --
 def obtener_productos():
-    conexion = conectar()
-    cursor = conexion.cursor()
-    
-    cursor.execute("SELECT * FROM producto")
-    resultados = cursor.fetchall()
-    
-    productos = []
-    
-    for fila in resultados:
-        productos.append({
-            "id": fila[0],
-            "nombre": fila[1],
-            "precio": float(fila[2]),
-            "imagen": fila[3],
-            "descripcion": fila[4],
-            "stock": fila[5]
-            
-        })
-    conexion.close()
-    return productos
+    try: 
+        conexion = conectar()
+        cursor = conexion.cursor()
+        
+        cursor.execute("SELECT * FROM producto")
+        resultados = cursor.fetchall()
+        
+        productos = []
+        
+        for fila in resultados:
+            productos.append({
+                "id": fila[0],
+                "nombre": fila[1],
+                "precio": float(fila[2]),
+                "imagen": fila[3],
+                "descripcion": fila[4],
+                "stock": fila[5]
+                
+            })
+        
+        return productos
+    finally:
+        conexion.close()
     
     # print("-- LISTADO DE PRODUCTOS DISPONIBLES --")
 

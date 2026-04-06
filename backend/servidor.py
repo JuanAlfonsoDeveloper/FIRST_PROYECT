@@ -79,7 +79,7 @@ def login():
         if not datos:
             return jsonify({"error": "No se recibieron datos"}), 400
             
-        print("Datos que llegaron de React:", datos) # Esto saldrá en tu terminal
+      
 
         # 2. Extraemos los datos (asegúrate de que los nombres coincidan con React)
         correo = datos.get("correo")

@@ -39,6 +39,8 @@ function Login({ alLoguear }){
         alLoguear(data.usuario); 
 
         alert(`Bienvenido de nuevo, ${data.usuario.nombre}`);
+    } else{
+      alert("Correo o contraseña incorrectos")
     }
     } catch (error) { 
         console.error("Error de red:", error);
