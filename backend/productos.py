@@ -76,7 +76,8 @@ def obtener_productos():
         
         return productos
     finally:
-        conexion.close()
+        if conexion is not None:
+            conexion.close()
     
     # print("-- LISTADO DE PRODUCTOS DISPONIBLES --")
 

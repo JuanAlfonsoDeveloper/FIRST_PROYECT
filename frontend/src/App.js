@@ -21,20 +21,9 @@ function App() {
 };
 
   return (
-   <div className="App">
-      {/* 3. La Lógica del Portero: */}
-      { !usuarioActivo ? (
-          // Si NO hay usuario, muestra el Login y pásale la función
-          <Login alLoguear={finalizarLogin} />
-      ) : (
-          // Si HAY usuario, muestra el Catálogo y un saludo
-          <div>
-            <h1>¡Hola, {usuarioActivo.nombre}!</h1>
-            <button onClick={() => setUsuarioActivo(null)}>Cerrar Sesión</button>
-            <Catalogo />
-          </div>
-      )}
-    </div>
+   <div>
+    <Catalogo/>
+   </div>
   );
 }
 
