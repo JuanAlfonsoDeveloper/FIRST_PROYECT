@@ -3,4 +3,4 @@ react = localhost3000
 []
 
 
---  Se muestra ya los productos falta la funcion de agragar al carrito 
+--  Se modifico la base de datos para que tuviera el campo de categoria y se va cambiar el diseño para que primero muestre las categorias 
