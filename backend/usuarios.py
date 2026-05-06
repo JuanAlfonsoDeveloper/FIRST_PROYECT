@@ -211,6 +211,8 @@ def login_usuario(correo, password):
             }
         else: 
             print("correo o password incorrectos")
+            print(password)
+            print(correo)
     except Exception as e:
         print("Error al hacer login:", e)
     finally: 

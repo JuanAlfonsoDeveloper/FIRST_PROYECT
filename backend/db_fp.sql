@@ -64,7 +64,7 @@ INSERT INTO `categoria`VALUES (null,'Futbol');
 INSERT INTO `categoria`VALUES (null,'Basquet');
 
 -- Inserccion de usuarios 
-INSERT INTO `usuario`VALUES (null,'Juan','Alfonso','j@gmail.com','31234567','1234','calle falsa 123',1);
+INSERT INTO `usuario`VALUES (null,'Lucas','Sanchez','l@gmail.com','31234567',SHA2('1234', 256),'calle falsa 123',1);
 
 
 -- Inserccion de productos 
